@@ -18,10 +18,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // Ищем аниматор в детях, так как он остался на объекте "charecter"
         animator = GetComponentInChildren<Animator>();
 
-        // "Прогреваем" аниматор, чтобы не было ошибки в первом кадре
         if (animator != null) animator.Update(0);
     }
 
@@ -39,10 +37,6 @@ public class PlayerMovement : MonoBehaviour
             isFinishingStep = false;
             hasStopped = false;
             stepFinishTarget = -1f;
-
-            // РАЗВОРОТ: меняем масштаб всего родительского объекта
-            // Теперь персонаж не будет телепортироваться, если вы правильно 
-            // отцентровали "дочку" внутри "родителя".
             transform.localScale = new Vector3(directionX, 1f, 1f);
         }
 
