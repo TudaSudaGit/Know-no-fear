@@ -303,9 +303,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   bulletPrefab: {fileID: 8108605528501571524, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+  firePoint: {fileID: 2077265087}
   bulletForce: 20
-  firePointStart: {fileID: 2077265087}
-  firePointEnd: {fileID: 1458784864}
+  shoulder: {fileID: 3654695972406684585}
+  armTarget: {fileID: 1917147803}
 --- !u!1 &372016662
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,37 +770,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1458784863
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1458784864}
-  m_Layer: 0
-  m_Name: FirePointEnd
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1458784864
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458784863}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.00000002793967, w: 1}
-  m_LocalPosition: {x: 1.95, y: -0.09, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5059126322468873264}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1478556279
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,6 +924,23 @@ MonoBehaviour:
   m_labelHash: 1.4945901e-15
   m_SpriteKey: 0
   m_SpriteHash: 803202816
+--- !u!1 &1913029512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8108605528501571524, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+  m_PrefabInstance: {fileID: 754392442528681755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1913029517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913029512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874c53e8414afca4f88e32dda0b1e1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet
 --- !u!1 &1917147802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +992,7 @@ MonoBehaviour:
   visualCrosshair: {fileID: 372016662}
   hideSystemCursor: 1
   aimRadius: 2
-  angleOffset: 47
+  angleOffset: 50
   walkParameter: Speed
   walkThreshold: 0.1
   isWalkParamBool: 0
@@ -1020,7 +1007,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2077265087}
   m_Layer: 0
-  m_Name: FirePointStart
+  m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1035,7 +1022,7 @@ Transform:
   m_GameObject: {fileID: 2077265086}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.00000002793967, w: 1}
-  m_LocalPosition: {x: 1.47, y: -0.09, z: 0}
+  m_LocalPosition: {x: 1.72, y: -0.089999855, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1127,6 +1114,66 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &754392442528681755
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.433
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.784
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105126756256787595, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108605528501571524, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      propertyPath: m_Name
+      value: Circle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8108605528501571524, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1913029517}
+  m_SourcePrefab: {fileID: 100100000, guid: f1dd940bd501fe549b0f769dbe21fdbc, type: 3}
 --- !u!1 &1368018647004446750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,7 +1626,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2077265087}
-  - {fileID: 1458784864}
   m_Father: {fileID: 3654695972406684585}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5229445979745330759
@@ -1799,3 +1845,4 @@ SceneRoots:
   - {fileID: 1917147803}
   - {fileID: 56793514}
   - {fileID: 404523969}
+  - {fileID: 754392442528681755}

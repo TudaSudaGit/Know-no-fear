@@ -8,8 +8,8 @@ public class FullArmLimiter : MonoBehaviour
     public Transform bone3;
     public Transform bone4;
 
-    private const float B1_MIN = -85f;
-    private const float B1_MAX = -85f;
+    private const float B1_MIN = -90f;
+    private const float B1_MAX = -90f;
 
     private const float B2_MIN = 0f;
     private const float B2_MAX = 0f;
