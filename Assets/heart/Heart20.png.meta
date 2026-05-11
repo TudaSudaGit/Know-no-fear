@@ -1,10 +1,14 @@
 fileFormatVersion: 2
-guid: 21fa0c5174b627e478c06097d1c2a86f
+guid: 1b35635e133ee49419030781749dc98f
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287862
+  packageName: Heart in pixel
+  packageVersion: 1.0
+  assetPath: Assets/MR3_2004/heart/Heart20.png
+  uploadId: 671617
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 4778626867601839185
-    second: aattack (16)_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +41,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +50,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -56,7 +60,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0.1
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -75,7 +79,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,111 +104,77 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: aattack (16)_0
+      name: Heart20_0
       rect:
         serializedVersion: 2
-        x: 90
-        y: 140
-        width: 845
-        height: 533
+        x: 9
+        y: 1084
+        width: 905
+        height: 825
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1549b8d51d7115240800000000000000
-      internalID: 4778626867601839185
+      spriteID: 0bfdcdd0631f85a4481a67a1a1a37fc1
+      internalID: 71456792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Heart20_1
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 1097
+        width: 902
+        height: 802
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5be248b5f71a0594599b6a2273937601
+      internalID: 1419355696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Heart20_2
+      rect:
+        serializedVersion: 2
+        x: 1954
+        y: 1084
+        width: 874
+        height: 821
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4db299d754522634ca01c0ea50cb92c9
+      internalID: 1128615848
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
     customData: 
-    physicsShape:
-    - - {x: 341, y: -299}
-      - {x: 348, y: -291}
-      - {x: 383, y: -257}
-      - {x: 421, y: -217}
-      - {x: 442, y: -186}
-      - {x: 452, y: -165}
-      - {x: 452, y: -143}
-      - {x: 341, y: -198}
-      - {x: 300, y: -178}
-      - {x: 274, y: -173}
-      - {x: 230, y: -129}
-      - {x: 216, y: -121}
-      - {x: 150, y: -76}
-      - {x: 134, y: -27}
-      - {x: 146, y: -34}
-      - {x: 167, y: -28}
-      - {x: 178, y: -12}
-      - {x: 180, y: 25}
-      - {x: 205, y: 76}
-      - {x: 182, y: 119}
-      - {x: 163, y: 137}
-      - {x: 111, y: 158}
-      - {x: 113, y: 170}
-      - {x: 111, y: 184}
-      - {x: 91, y: 191}
-      - {x: 54, y: 191}
-      - {x: -23, y: 174}
-      - {x: -52, y: 160}
-      - {x: -74, y: 143}
-      - {x: -122, y: 91}
-      - {x: -129, y: 41}
-      - {x: -157, y: -21}
-      - {x: -188, y: -62}
-      - {x: -210, y: -92}
-      - {x: -228, y: -131}
-      - {x: -241, y: -128}
-      - {x: -263, y: -127}
-      - {x: -308, y: -163}
-      - {x: -337, y: -161}
-      - {x: -367, y: -179}
-      - {x: -371, y: -210}
-      - {x: -367, y: -241}
-      - {x: -387, y: -258}
-      - {x: -387, y: -276}
-      - {x: -386, y: -282}
-      - {x: -314, y: -286}
-      - {x: -281, y: -281}
-      - {x: -256, y: -272}
-      - {x: -255, y: -254}
-      - {x: -258, y: -251}
-      - {x: -266, y: -245}
-      - {x: -274, y: -217}
-      - {x: -212, y: -202}
-      - {x: -189, y: -187}
-      - {x: -163, y: -195}
-      - {x: -159, y: -221}
-      - {x: -140, y: -224}
-      - {x: -100, y: -189}
-      - {x: -83, y: -254}
-      - {x: -75, y: -278}
-      - {x: -62, y: -279}
-      - {x: -52, y: -279}
-      - {x: -12, y: -276}
-      - {x: 53, y: -289}
-      - {x: 140, y: -284}
-      - {x: 137, y: -261}
-      - {x: 120, y: -253}
-      - {x: 84, y: -224}
-      - {x: 105, y: -172}
-      - {x: 114, y: -148}
-      - {x: 130, y: -162}
-      - {x: 160, y: -210}
-      - {x: 196, y: -215}
-      - {x: 187, y: -250}
-      - {x: 209, y: -270}
-      - {x: 215, y: -313}
-      - {x: 242, y: -337}
-      - {x: 260, y: -337}
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -213,7 +183,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      aattack (16)_0: 4778626867601839185
+      Heart20_0: 71456792
+      Heart20_1: 1419355696
+      Heart20_2: 1128615848
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

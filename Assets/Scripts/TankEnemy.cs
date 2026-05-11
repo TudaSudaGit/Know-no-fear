@@ -59,6 +59,19 @@ public class TankEnemy : MonoBehaviour
         spriteRenderer.flipX = player.position.x < transform.position.x;
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (isAttacking && collision.gameObject.CompareTag("Player"))
+        {
+            Health playerHealth = collision.gameObject.GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(1);
+                isAttacking = false;
+            }
+        }
+    }
+
     void StartAttack()
     {
         isAttacking = true;
