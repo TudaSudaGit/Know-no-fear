@@ -83,17 +83,20 @@ public class RangedEnemy : MonoBehaviour
 
     void Shoot()
     {
-        if (bulletPrefab == null || firePoint == null) return;
-
+        if (firePoint == null || player == null) return;
         animator.SetTrigger("Attack");
+        shootTimer = shootCooldown;
+    }
 
-        GameObject laser = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+    public void SpawnBullet()
+    {
+        GameObject laserObj = new GameObject("Laser");
+        LaserBeam beam = laserObj.AddComponent<LaserBeam>();
+        beam.Fire(firePoint.position, player.position);
 
-        Vector2 dir = (player.position - firePoint.position).normalized;
-
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-        laser.transform.rotation = Quaternion.Euler(0, 0, angle);
+        Health playerHealth = player.GetComponent<Health>();
+        if (playerHealth != null)
+            playerHealth.TakeDamage(1);
     }
 
     void FlipSprite()

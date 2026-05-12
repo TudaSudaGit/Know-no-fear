@@ -1,33 +1,76 @@
 using UnityEngine;
+using System.Collections;
 
 public class LaserBeam : MonoBehaviour
 {
-    public float speed = 15f;
-    public int damage = 1;
-    public float lifetime = 2f;
+    private LineRenderer line;
 
-    private Rigidbody2D rb;
+    [Header("Настройки луча")]
+    public float duration = 0.15f;     
+    public float expandSpeed = 110f;   
+    public Color laserColor = new Color(1f, 0.2f, 0.2f, 1f);
+    public float startWidth = 0.3f;  
+    public float endWidth = 0.25f;  
 
-    void Start()
+    private Vector3 startPos;
+    private Vector3 endPos;
+
+    public void Fire(Vector3 from, Vector3 to)
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = transform.right * speed;
-        Destroy(gameObject, lifetime);
+        startPos = from;
+        endPos = to;
+        StartCoroutine(ShootBeam());
     }
-
-    private void OnTriggerEnter2D(Collider2D hitInfo)
+    Gradient MakeLaserGradient(float alpha = 1f)
     {
-        Health playerHealth = hitInfo.GetComponentInParent<Health>();
+        Gradient g = new Gradient();
+        g.SetKeys(
+            new GradientColorKey[]
+            {
+            new GradientColorKey(laserColor, 0f),
+            new GradientColorKey(Color.white, 0.5f), 
+            new GradientColorKey(laserColor, 1f)
+            },
+            new GradientAlphaKey[]
+            {
+            new GradientAlphaKey(alpha, 0f),
+            new GradientAlphaKey(alpha, 1f)
+            }
+        );
+        return g;
+    }
+    IEnumerator ShootBeam()
+    {
+        line = gameObject.AddComponent<LineRenderer>();
+        line.positionCount = 2;
+        line.startWidth = startWidth;
+        line.endWidth = endWidth;
+        line.material = new Material(Shader.Find("Sprites/Default"));
+        line.colorGradient = MakeLaserGradient();
+        line.useWorldSpace = true;
 
-        if (playerHealth != null && hitInfo.CompareTag("Player"))
+        line.SetPosition(0, startPos);
+        line.SetPosition(1, startPos); 
+
+        
+        float t = 0f;
+        float dist = Vector3.Distance(startPos, endPos);
+        float travelTime = dist / expandSpeed;
+
+        while (t < travelTime)
         {
-            playerHealth.TakeDamage(damage);
-            Destroy(gameObject);
+            t += Time.deltaTime;
+            Vector3 current = Vector3.Lerp(startPos, endPos, t / travelTime);
+            line.SetPosition(1, current);
+            yield return null;
         }
 
-        if (hitInfo.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            Destroy(gameObject);
-        }
+        line.SetPosition(1, endPos);
+
+
+        float fadeTime = duration;
+        float elapsed = 0f;
+
+        Destroy(gameObject);
     }
 }
