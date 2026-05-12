@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class LaserShot : MonoBehaviour
+public class LaserBeam : MonoBehaviour
 {
     public float speed = 15f;
     public int damage = 1;
-    public float lifetime = 8f;
+    public float lifetime = 2f;
 
     private Rigidbody2D rb;
 
@@ -25,7 +25,7 @@ public class LaserShot : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (hitInfo.gameObject.CompareTag("Ground"))
+        if (hitInfo.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
         }

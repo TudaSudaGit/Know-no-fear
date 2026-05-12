@@ -56,18 +56,28 @@ public class TankEnemy : MonoBehaviour
             }
         }
 
-        spriteRenderer.flipX = player.position.x < transform.position.x;
+        if (player.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector3(-1.8f, 1.8f, 1f);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1.8f, 1.8f, 1f);
+        }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (isAttacking && collision.gameObject.CompareTag("Player"))
+        if (isAttacking)
         {
-            Health playerHealth = collision.gameObject.GetComponent<Health>();
-            if (playerHealth != null)
+            Health targetHealth = other.GetComponentInParent<Health>();
+
+            if (targetHealth != null && targetHealth.CompareTag("Player"))
             {
-                playerHealth.TakeDamage(1);
+                targetHealth.TakeDamage(1);
+
                 isAttacking = false;
+                Debug.Log("Урон нанесен через Триггер");
             }
         }
     }

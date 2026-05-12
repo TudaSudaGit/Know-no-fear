@@ -358,6 +358,108 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &175031513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175031514}
+  - component: {fileID: 175031517}
+  - component: {fileID: 175031516}
+  - component: {fileID: 175031515}
+  m_Layer: 6
+  m_Name: Canvas (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &175031514
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175031513}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0055555557, y: 0.0055555557, z: 0.005}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 629223394}
+  m_Father: {fileID: 1564102267}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.41, y: -4.6}
+  m_SizeDelta: {x: 1164, y: 481}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &175031515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175031513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &175031516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175031513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!223 &175031517
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175031513}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &175990414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1247,7 @@ Transform:
   m_GameObject: {fileID: 404523966}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.04, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1339,12 +1441,12 @@ PolygonCollider2D:
       - {x: 3.701749, y: 1.4309947}
       - {x: 3.7509925, y: 1.4343947}
       - {x: 3.7518022, y: 1.4547902}
-      - {x: 3.7707448, y: 1.5152543}
-      - {x: 3.7332766, y: 1.8482344}
-      - {x: 3.724847, y: 1.8905362}
-      - {x: 3.689644, y: 1.9190124}
-      - {x: 3.6640182, y: 1.916308}
-      - {x: 3.6564558, y: 1.9366845}
+      - {x: 4.7938905, y: 1.4937143}
+      - {x: 4.7133427, y: 1.8051546}
+      - {x: 4.6833735, y: 1.8474563}
+      - {x: 4.7127905, y: 1.9190124}
+      - {x: 4.708704, y: 1.9593877}
+      - {x: 4.7011414, y: 2.0659237}
       - {x: 3.503236, y: 1.921259}
       - {x: 3.4975133, y: 1.9523019}
       - {x: 3.5381846, y: 1.9632766}
@@ -2061,6 +2163,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616673965}
   m_CullTransparentMesh: 1
+--- !u!1 &629223393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 629223394}
+  - component: {fileID: 629223395}
+  m_Layer: 6
+  m_Name: HeartsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &629223394
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629223393}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 175031514}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -349, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &629223395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629223393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &634859045
 GameObject:
   m_ObjectHideFlags: 0
@@ -2152,6 +2316,8 @@ GameObject:
   - component: {fileID: 736850446}
   - component: {fileID: 736850440}
   - component: {fileID: 736850439}
+  - component: {fileID: 736850448}
+  - component: {fileID: 736850449}
   m_Layer: 0
   m_Name: ' Enemy_Tank'
   m_TagString: Enemy
@@ -2291,12 +2457,11 @@ Transform:
   m_GameObject: {fileID: 736850438}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32, y: -1.38, z: 0}
+  m_LocalPosition: {x: 18.09, y: 0.71, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1681523438}
-  - {fileID: 1921577113}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &736850446
@@ -2329,7 +2494,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2487,17 +2652,17 @@ PolygonCollider2D:
       - {x: -2.58, y: -2.05}
       - {x: -2.6499999, y: -2.23}
       - {x: -2.8, y: -2.4199998}
-      - {x: -2.9099998, y: -2.5}
-      - {x: -3.04, y: -2.62}
-      - {x: -3.02, y: -2.79}
-      - {x: -2.97, y: -2.82}
-      - {x: -2.29, y: -2.83}
-      - {x: -2.03, y: -2.83}
-      - {x: -1.9499999, y: -2.8}
-      - {x: -1.93, y: -2.73}
-      - {x: -1.6999999, y: -2.72}
-      - {x: -1.68, y: -2.7}
-      - {x: -1.67, y: -2.52}
+      - {x: -2.6601987, y: -2.3900876}
+      - {x: -2.7901988, y: -2.4301512}
+      - {x: -2.6802704, y: -2.4103026}
+      - {x: -2.5903025, y: -2.4303102}
+      - {x: -2.2800076, y: -2.4403105}
+      - {x: -2.0899522, y: -2.4702866}
+      - {x: -1.9599918, y: -2.2604299}
+      - {x: -1.9000238, y: -2.2503824}
+      - {x: -1.9797773, y: -2.2303903}
+      - {x: -2.0297213, y: -2.150438}
+      - {x: -1.929793, y: -2.0703583}
       - {x: -1.78, y: -2.4299998}
       - {x: -1.78, y: -2.36}
       - {x: -1.73, y: -2.19}
@@ -2541,17 +2706,17 @@ PolygonCollider2D:
       - {x: 0.76, y: -2.09}
       - {x: 0.64, y: -2.26}
       - {x: 0.64, y: -2.36}
-      - {x: 0.65999997, y: -2.69}
-      - {x: 0.72999996, y: -2.76}
-      - {x: 1, y: -2.76}
-      - {x: 1.17, y: -2.8}
-      - {x: 1.27, y: -2.84}
-      - {x: 1.4499999, y: -2.86}
-      - {x: 1.9499999, y: -2.86}
-      - {x: 2.2, y: -2.85}
-      - {x: 2.25, y: -2.79}
-      - {x: 2.24, y: -2.6399999}
-      - {x: 2.19, y: -2.57}
+      - {x: 0.7173794, y: -2.1934457}
+      - {x: 0.9021403, y: -2.1858442}
+      - {x: 1.1498806, y: -2.480223}
+      - {x: 1.3398652, y: -2.4702628}
+      - {x: 1.4898251, y: -2.5002706}
+      - {x: 1.6898088, y: -2.5302625}
+      - {x: 1.8500792, y: -2.5202706}
+      - {x: 2.0301359, y: -2.5502388}
+      - {x: 1.9102715, y: -2.4802468}
+      - {x: 1.7004302, y: -2.4101832}
+      - {x: 1.9901586, y: -2.4500954}
     - - {x: 0.14999999, y: -1.4699999}
       - {x: 0.16, y: -1.4599999}
       - {x: 0.16, y: -1.4399999}
@@ -2621,6 +2786,55 @@ MonoBehaviour:
   currentHealth: 0
   heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
   heartsContainer: {fileID: 125619285}
+--- !u!70 &736850448
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736850438}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.3410102, y: -2.7030964}
+  m_Size: {x: 5.5989237, y: 0.28370014}
+  m_Direction: 1
+--- !u!114 &736850449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736850438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b51c686efaac345a06e38b6a6a0c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderSync
 --- !u!1 &882188569
 GameObject:
   m_ObjectHideFlags: 0
@@ -3125,7 +3339,7 @@ Transform:
   m_GameObject: {fileID: 1315427072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 1.85, z: 0}
+  m_LocalPosition: {x: 3.49, y: 1.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3503,6 +3717,7 @@ GameObject:
   - component: {fileID: 1564102264}
   - component: {fileID: 1564102263}
   - component: {fileID: 1564102262}
+  - component: {fileID: 1564102268}
   m_Layer: 0
   m_Name: Enemy_Ranged
   m_TagString: Enemy
@@ -3523,10 +3738,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
   moveSpeed: 2
-  detectionRange: 35
+  detectionRange: 19
   shootRange: 20
   retreatRange: 12
-  bulletPrefab: {fileID: 9001482634282814214, guid: da633da75eccc4c4f8c0dcefb5d4d939, type: 3}
+  bulletPrefab: {fileID: 8469879430846737305, guid: ad6ecaf196e813a44a2176ddd44c5b3d, type: 3}
   firePoint: {fileID: 1315427073}
   bulletSpeed: 8
   shootCooldown: 2
@@ -3693,13 +3908,30 @@ Transform:
   m_GameObject: {fileID: 1564102261}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.38, y: -1.15, z: 0}
+  m_LocalPosition: {x: -17.1, y: -1.49, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 175031514}
   - {fileID: 1315427073}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1564102268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564102261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0686ccbe964fed6498204f39c4a2b085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 5
+  currentHealth: 0
+  heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
+  heartsContainer: {fileID: 629223394}
 --- !u!1 &1593972930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,74 +4433,6 @@ MonoBehaviour:
   walkThreshold: 0.1
   isWalkParamBool: 0
   weightSmoothSpeed: 10
---- !u!1 &1921577112
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1921577113}
-  - component: {fileID: 1921577114}
-  m_Layer: 0
-  m_Name: AttackHitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1921577113
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921577112}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 736850445}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1921577114
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921577112}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
 --- !u!1 &2077265086
 GameObject:
   m_ObjectHideFlags: 0
