@@ -2,20 +2,35 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D hitInfo)
-    {
-        Health targetHealth = hitInfo.GetComponent<Health>();
+    [HideInInspector] public UnitStats attackerStats;
 
-        if (targetHealth != null && !hitInfo.CompareTag("Player"))
+    void Start()
+    {
+        Destroy(gameObject, 10f);
+    }
+
+    void OnTriggerEnter2D(Collider2D hitInfo)
+    {
+        if (hitInfo.CompareTag("Player")) { Destroy(gameObject); return; }
+
+        Health targetHealth = hitInfo.GetComponent<Health>()
+                           ?? hitInfo.GetComponentInParent<Health>();
+
+        if (targetHealth != null)
         {
-            targetHealth.TakeDamage(1);
+            UnitStats targetStats = hitInfo.GetComponent<UnitStats>()
+                                 ?? hitInfo.GetComponentInParent<UnitStats>();
+
+            DiceRollPanel.Request(new DiceRollPanel.CombatRequest
+            {
+                attacker         = attackerStats,
+                defender         = targetStats,
+                defenderHealth   = targetHealth,
+                attackerIsPlayer = true,
+                isMelee          = false
+            });
         }
 
         Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        Destroy(gameObject, 10f);
     }
 }

@@ -3,32 +3,26 @@ using UnityEngine;
 public class RangedEnemy : MonoBehaviour
 {
     [Header("Движение")]
-    public float moveSpeed = 2f;
+    public float moveSpeed      = 2f;
     public float detectionRange = 10f;
-    public float shootRange = 6f;
-    public float retreatRange = 3f;
+    public float shootRange     = 6f;
+    public float retreatRange   = 3f;
 
     [Header("Стрельба")]
-    public GameObject bulletPrefab;
     public Transform firePoint;
-    public float bulletSpeed = 8f;
-    public float shootCooldown = 2f;
-    private float shootTimer = 0f;
+    public float shootCooldown  = 2f;
+    private float shootTimer    = 0f;
 
     private Transform player;
     private Rigidbody2D rb;
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb       = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            player = playerObj.transform;
+        if (playerObj != null) player = playerObj.transform;
     }
 
     void Update()
@@ -44,15 +38,9 @@ public class RangedEnemy : MonoBehaviour
         }
         else if (dist <= shootRange)
         {
-           
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             animator.SetFloat("Speed", 0f);
-
-            if (shootTimer <= 0f)
-            {
-                Shoot();
-                shootTimer = shootCooldown;
-            }
+            if (shootTimer <= 0f) { Shoot(); shootTimer = shootCooldown; }
         }
         else if (dist <= detectionRange)
         {
@@ -90,20 +78,35 @@ public class RangedEnemy : MonoBehaviour
 
     public void SpawnBullet()
     {
+        if (player == null) return;
+
+        Vector3 origin = firePoint != null ? firePoint.position : transform.position;
         GameObject laserObj = new GameObject("Laser");
         LaserBeam beam = laserObj.AddComponent<LaserBeam>();
-        beam.Fire(firePoint.position, player.position);
+        beam.Fire(origin, player.position);
 
-        Health playerHealth = player.GetComponent<Health>();
-        if (playerHealth != null)
-            playerHealth.TakeDamage(1);
+        UnitStats myStats     = GetComponent<UnitStats>();
+        Health playerHealth   = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();
+        UnitStats playerStats = player.GetComponentInParent<UnitStats>() ?? player.GetComponent<UnitStats>();
+
+        int atkCount = myStats != null ? myStats.attacks : 1;
+
+        for (int i = 0; i < atkCount; i++)
+        {
+            DiceRollPanel.Request(new DiceRollPanel.CombatRequest
+            {
+                attacker         = myStats,
+                defender         = playerStats,
+                defenderHealth   = playerHealth,
+                attackerIsPlayer = false,
+                isMelee          = false
+            });
+        }
     }
 
     void FlipSprite()
     {
-        if (player.position.x < transform.position.x)
-            transform.localScale = new Vector3(-0.9f, 0.9f, 1f);
-        else
-            transform.localScale = new Vector3(0.9f, 0.9f, 1f);
+        float sx = player.position.x < transform.position.x ? -0.9f : 0.9f;
+        transform.localScale = new Vector3(sx, 0.9f, 1f);
     }
 }

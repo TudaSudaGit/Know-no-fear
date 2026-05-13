@@ -13,22 +13,24 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButton(1) && Input.GetMouseButtonDown(0))
-        {
             Shoot();
-        }
     }
 
     void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePointEnd.position, firePointEnd.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 
+        Bullet bulletComp = bullet.GetComponent<Bullet>();
+        if (bulletComp != null)
+            bulletComp.attackerStats = GetComponentInParent<UnitStats>();
+
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            Vector2 barrelDirection = (firePointEnd.position - firePointStart.position).normalized;
-            rb.AddForce(barrelDirection * bulletForce, ForceMode2D.Impulse);
-            float angle = Mathf.Atan2(barrelDirection.y, barrelDirection.x) * Mathf.Rad2Deg;
-            bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Vector2 dir = (firePointEnd.position - firePointStart.position).normalized;
+            rb.AddForce(dir * bulletForce, ForceMode2D.Impulse);
+            bullet.transform.rotation = Quaternion.AngleAxis(
+                Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg, Vector3.forward);
         }
     }
 }

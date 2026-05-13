@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class LaserShot : MonoBehaviour
 {
-    public float speed = 15f;
-    public int damage = 1;
+    public float speed    = 15f;
+    public int   damage   = 1;
     public float lifetime = 8f;
+
+    [HideInInspector] public UnitStats attackerStats;
 
     private Rigidbody2D rb;
 
@@ -15,18 +17,36 @@ public class LaserShot : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    private void OnTriggerEnter2D(Collider2D hitInfo)
+    void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        Health playerHealth = hitInfo.GetComponentInParent<Health>();
-
-        if (playerHealth != null && hitInfo.CompareTag("Player"))
-        {
-            playerHealth.TakeDamage(damage);
-            Destroy(gameObject);
-        }
-
         if (hitInfo.gameObject.CompareTag("Ground"))
         {
+            Destroy(gameObject);
+            return;
+        }
+
+        Health targetHealth = hitInfo.GetComponentInParent<Health>()
+                           ?? hitInfo.GetComponent<Health>();
+        UnitStats targetStats = hitInfo.GetComponentInParent<UnitStats>()
+                             ?? hitInfo.GetComponent<UnitStats>();
+
+        if (targetHealth != null && targetHealth.gameObject.CompareTag("Player"))
+        {
+            if (DiceRollPanel.Instance != null && attackerStats != null && targetStats != null)
+            {
+                DiceRollPanel.Instance.RequestCombat(new DiceRollPanel.CombatRequest
+                {
+                    attacker         = attackerStats,
+                    defender         = targetStats,
+                    defenderHealth   = targetHealth,
+                    attackerIsPlayer = false,
+                    isMelee          = false
+                });
+            }
+            else
+            {
+                targetHealth.TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
     }

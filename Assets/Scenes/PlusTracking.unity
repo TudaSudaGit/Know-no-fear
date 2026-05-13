@@ -1268,6 +1268,7 @@ GameObject:
   - component: {fileID: 428144068}
   - component: {fileID: 428144069}
   - component: {fileID: 428144070}
+  - component: {fileID: 428144072}
   m_Layer: 6
   m_Name: Player_Root
   m_TagString: Player
@@ -1584,8 +1585,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
   currentHealth: 0
-  heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
-  heartsContainer: {fileID: 920812441}
+  isPlayerHealth: 1
+  healthContainer: {fileID: 920812441}
+--- !u!114 &428144072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428144064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416b7e8f4e3331540b4b739b0a14c5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitStats
+  ballisticSkill: 3
+  weaponSkill: 3
+  strength: 4
+  damage: 1
+  attacks: 1
+  armorPenetration: 0
+  toughness: 4
+  save: 3
+  wounds: 3
 --- !u!1 &493403331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,6 +2340,7 @@ GameObject:
   - component: {fileID: 736850439}
   - component: {fileID: 736850448}
   - component: {fileID: 736850449}
+  - component: {fileID: 736850450}
   m_Layer: 0
   m_Name: ' Enemy_Tank'
   m_TagString: Enemy
@@ -2457,7 +2480,7 @@ Transform:
   m_GameObject: {fileID: 736850438}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.9, y: -14.1, z: 0}
+  m_LocalPosition: {x: 12.1, y: 0.8, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2784,8 +2807,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
   currentHealth: 0
-  heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
-  heartsContainer: {fileID: 125619285}
+  isPlayerHealth: 0
+  healthContainer: {fileID: 125619285}
 --- !u!70 &736850448
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2835,6 +2858,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b51c686efaac345a06e38b6a6a0c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColliderSync
+--- !u!114 &736850450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736850438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416b7e8f4e3331540b4b739b0a14c5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitStats
+  ballisticSkill: 4
+  weaponSkill: 4
+  strength: 4
+  damage: 2
+  attacks: 1
+  armorPenetration: -2
+  toughness: 6
+  save: 5
+  wounds: 5
 --- !u!1 &882188569
 GameObject:
   m_ObjectHideFlags: 0
@@ -3718,6 +3762,7 @@ GameObject:
   - component: {fileID: 1564102263}
   - component: {fileID: 1564102262}
   - component: {fileID: 1564102268}
+  - component: {fileID: 1564102269}
   m_Layer: 0
   m_Name: Enemy_Ranged
   m_TagString: Enemy
@@ -3741,9 +3786,7 @@ MonoBehaviour:
   detectionRange: 30
   shootRange: 5
   retreatRange: 12
-  bulletPrefab: {fileID: 8469879430846737305, guid: ad6ecaf196e813a44a2176ddd44c5b3d, type: 3}
   firePoint: {fileID: 1315427073}
-  bulletSpeed: 8
   shootCooldown: 2
 --- !u!95 &1564102263
 Animator:
@@ -3908,7 +3951,7 @@ Transform:
   m_GameObject: {fileID: 1564102261}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.2, y: -1.4, z: 0}
+  m_LocalPosition: {x: 28.8, y: -17.4, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3930,8 +3973,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
   currentHealth: 0
-  heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
-  heartsContainer: {fileID: 629223394}
+  isPlayerHealth: 0
+  healthContainer: {fileID: 629223394}
+--- !u!114 &1564102269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564102261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416b7e8f4e3331540b4b739b0a14c5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitStats
+  ballisticSkill: 4
+  weaponSkill: 4
+  strength: 4
+  damage: 1
+  attacks: 1
+  armorPenetration: 0
+  toughness: 4
+  save: 5
+  wounds: 5
 --- !u!1 &1593972930
 GameObject:
   m_ObjectHideFlags: 0
