@@ -27,6 +27,9 @@ public class MouseAimTarget : MonoBehaviour
     public float weightSmoothSpeed = 10f;
 
     private float targetWeight = 0f;
+    [Header("Настройки изменения цвета прицела")]
+    public CrosshairColor crosshairColorScript;
+    public LayerMask enemyLayer;
 
     private void Start()
     {
@@ -56,6 +59,19 @@ public class MouseAimTarget : MonoBehaviour
         if (ikManager != null)
         {
             ikManager.weight = Mathf.Lerp(ikManager.weight, targetWeight, Time.deltaTime * weightSmoothSpeed);
+        }
+        if (crosshairColorScript != null)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = -Camera.main.transform.position.z;
+            Vector2 worldMousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero, 0f, enemyLayer);
+
+            if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+            {
+                crosshairColorScript.SetOverEnemy();
+            }
         }
     }
 

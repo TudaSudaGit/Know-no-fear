@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 125619285}
   - component: {fileID: 125619286}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: HeartsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 175031517}
   - component: {fileID: 175031516}
   - component: {fileID: 175031515}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1262,9 +1262,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 428144067}
-  - component: {fileID: 428144066}
-  - component: {fileID: 428144071}
   - component: {fileID: 428144065}
+  - component: {fileID: 428144071}
+  - component: {fileID: 428144066}
   - component: {fileID: 428144068}
   - component: {fileID: 428144069}
   - component: {fileID: 428144070}
@@ -1288,6 +1288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 13
+  uiContainer: {fileID: 45899928}
 --- !u!50 &428144066
 Rigidbody2D:
   serializedVersion: 5
@@ -1584,8 +1585,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
   currentHealth: 0
-  heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
-  heartsContainer: {fileID: 920812441}
+  isPlayerHealth: 0
+  healthContainer: {fileID: 920812441}
 --- !u!1 &493403331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,7 +2174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 629223394}
   - component: {fileID: 629223395}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: HeartsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2310,15 +2311,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 736850445}
-  - component: {fileID: 736850444}
+  - component: {fileID: 736850439}
   - component: {fileID: 736850447}
+  - component: {fileID: 736850449}
+  - component: {fileID: 736850444}
   - component: {fileID: 736850443}
   - component: {fileID: 736850446}
   - component: {fileID: 736850440}
-  - component: {fileID: 736850439}
   - component: {fileID: 736850448}
-  - component: {fileID: 736850449}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ' Enemy_Tank'
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -2340,6 +2341,7 @@ MonoBehaviour:
   moveSpeed: 2
   attackRange: 12
   attackCooldown: 1.5
+  uiContainer: {fileID: 1681523438}
 --- !u!95 &736850440
 Animator:
   serializedVersion: 7
@@ -2784,8 +2786,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
   currentHealth: 0
-  heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
-  heartsContainer: {fileID: 125619285}
+  isPlayerHealth: 0
+  healthContainer: {fileID: 125619285}
 --- !u!70 &736850448
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3323,7 +3325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1315427073}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 'FirePoint '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3712,13 +3714,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1564102267}
+  - component: {fileID: 1564102262}
+  - component: {fileID: 1564102268}
+  - component: {fileID: 1564102263}
   - component: {fileID: 1564102266}
   - component: {fileID: 1564102265}
   - component: {fileID: 1564102264}
-  - component: {fileID: 1564102263}
-  - component: {fileID: 1564102262}
-  - component: {fileID: 1564102268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy_Ranged
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -3738,12 +3740,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
   moveSpeed: 2
-  detectionRange: 19
-  shootRange: 20
+  detectionRange: 25
+  shootRange: 16
   retreatRange: 12
-  bulletPrefab: {fileID: 8469879430846737305, guid: ad6ecaf196e813a44a2176ddd44c5b3d, type: 3}
+  uiContainer: {fileID: 175031514}
   firePoint: {fileID: 1315427073}
-  bulletSpeed: 8
   shootCooldown: 2
 --- !u!95 &1564102263
 Animator:
@@ -3930,8 +3931,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
   currentHealth: 0
-  heartPrefab: {fileID: 4290638792646346017, guid: e628cfe538c0e4f49a708beb8d7b224e, type: 3}
-  heartsContainer: {fileID: 629223394}
+  isPlayerHealth: 0
+  healthContainer: {fileID: 629223394}
 --- !u!1 &1593972930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4016,7 +4017,7 @@ GameObject:
   - component: {fileID: 1681523441}
   - component: {fileID: 1681523440}
   - component: {fileID: 1681523439}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4387,6 +4388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1917147803}
   - component: {fileID: 1917147804}
+  - component: {fileID: 1917147805}
   m_Layer: 0
   m_Name: Arm_Target
   m_TagString: Untagged
@@ -4433,6 +4435,26 @@ MonoBehaviour:
   walkThreshold: 0.1
   isWalkParamBool: 0
   weightSmoothSpeed: 10
+  crosshairColorScript: {fileID: 1917147805}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1917147805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917147802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdc60c045fc4014b9e08621e3d935cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrosshairColor
+  crosshairImage: {fileID: 175990417}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  targetColor: {r: 1, g: 0, b: 0, a: 1}
+  changeSpeed: 5
 --- !u!1 &2077265086
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 4.2f;
+    public Transform uiContainer;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -58,10 +59,22 @@ public class PlayerMovement : MonoBehaviour
 
         keepMoving = hasInput || isFinishingStep;
         animator.SetFloat("Speed", keepMoving ? 1f : 0f);
+
+        FixUI();
     }
 
     void FixedUpdate()
     {
         rb.linearVelocity = keepMoving ? lastDirection * moveSpeed : Vector2.zero;
+    }
+
+    void FixUI()
+    {
+        if (uiContainer != null)
+        {
+            Vector3 ls = uiContainer.localScale;
+            ls.x = Mathf.Abs(ls.x) * Mathf.Sign(transform.localScale.x);
+            uiContainer.localScale = ls;
+        }
     }
 }

@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class RangedEnemy : MonoBehaviour
 {
-    [Header("Движение")]
-    public float moveSpeed      = 2f;
+    public float moveSpeed = 2f;
     public float detectionRange = 10f;
-    public float shootRange     = 6f;
-    public float retreatRange   = 3f;
+    public float shootRange = 6f;
+    public float retreatRange = 3f;
+    public Transform uiContainer;
 
-    [Header("Стрельба")]
     public Transform firePoint;
-    public float shootCooldown  = 2f;
-    private float shootTimer    = 0f;
+    public float shootCooldown = 2f;
+    private float shootTimer = 0f;
 
     private Transform player;
     private Rigidbody2D rb;
@@ -19,7 +18,7 @@ public class RangedEnemy : MonoBehaviour
 
     void Start()
     {
-        rb       = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) player = playerObj.transform;
@@ -30,50 +29,59 @@ public class RangedEnemy : MonoBehaviour
         if (player == null) return;
 
         float dist = Vector2.Distance(transform.position, player.position);
-        shootTimer -= Time.deltaTime;
 
-        if (dist <= retreatRange)
-        {
-            Retreat();
-        }
-        else if (dist <= shootRange)
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            animator.SetFloat("Speed", 0f);
-            if (shootTimer <= 0f) { Shoot(); shootTimer = shootCooldown; }
-        }
-        else if (dist <= detectionRange)
-        {
-            MoveToPlayer();
-        }
-        else
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            animator.SetFloat("Speed", 0f);
-        }
-
+        UpdateCooldown();
+        HandleState(dist);
         FlipSprite();
+        FixUI();
     }
 
-    void MoveToPlayer()
+    void UpdateCooldown()
     {
-        Vector2 dir = (player.position - transform.position).normalized;
-        rb.linearVelocity = new Vector2(dir.x * moveSpeed, rb.linearVelocity.y);
-        animator.SetFloat("Speed", Mathf.Abs(dir.x));
+        if (shootTimer > 0f) shootTimer -= Time.deltaTime;
     }
 
-    void Retreat()
+    void HandleState(float dist)
+    {
+        if (dist <= retreatRange) StateRetreat();
+        else if (dist <= shootRange) StateAttack();
+        else if (dist <= detectionRange) StateApproach();
+        else StateIdle();
+    }
+
+    void StateRetreat()
     {
         Vector2 dir = (transform.position - player.position).normalized;
         rb.linearVelocity = new Vector2(dir.x * moveSpeed, rb.linearVelocity.y);
-        animator.SetFloat("Speed", Mathf.Abs(dir.x));
+        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+        animator.ResetTrigger("Attack");
     }
 
-    void Shoot()
+    void StateAttack()
     {
-        if (firePoint == null || player == null) return;
-        animator.SetTrigger("Attack");
-        shootTimer = shootCooldown;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        animator.SetFloat("Speed", 0f);
+
+        if (shootTimer <= 0f)
+        {
+            animator.SetTrigger("Attack");
+            shootTimer = shootCooldown;
+        }
+    }
+
+    void StateApproach()
+    {
+        Vector2 dir = (player.position - transform.position).normalized;
+        rb.linearVelocity = new Vector2(dir.x * moveSpeed, rb.linearVelocity.y);
+        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+        animator.ResetTrigger("Attack");
+    }
+
+    void StateIdle()
+    {
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        animator.SetFloat("Speed", 0f);
+        animator.ResetTrigger("Attack");
     }
 
     public void SpawnBullet()
@@ -85,28 +93,52 @@ public class RangedEnemy : MonoBehaviour
         LaserBeam beam = laserObj.AddComponent<LaserBeam>();
         beam.Fire(origin, player.position);
 
-        UnitStats myStats     = GetComponent<UnitStats>();
-        Health playerHealth   = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();
-        UnitStats playerStats = player.GetComponentInParent<UnitStats>() ?? player.GetComponent<UnitStats>();
+        ApplyCombatDamage();
+    }
 
-        int atkCount = myStats != null ? myStats.attacks : 1;
+    void ApplyCombatDamage()
+    {
+        UnitStats myStats = GetComponent<UnitStats>();
+        Health targetHealth = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();
+        UnitStats targetStats = player.GetComponentInParent<UnitStats>() ?? player.GetComponent<UnitStats>();
 
-        for (int i = 0; i < atkCount; i++)
+        int attacks = (myStats != null) ? myStats.attacks : 1;
+        RecursiveCombatRequest(attacks, myStats, targetStats, targetHealth);
+    }
+
+    void RecursiveCombatRequest(int remaining, UnitStats attacker, UnitStats defender, Health health)
+    {
+        if (remaining <= 0) return;
+
+        DiceRollPanel.Request(new DiceRollPanel.CombatRequest
         {
-            DiceRollPanel.Request(new DiceRollPanel.CombatRequest
-            {
-                attacker         = myStats,
-                defender         = playerStats,
-                defenderHealth   = playerHealth,
-                attackerIsPlayer = false,
-                isMelee          = false
-            });
-        }
+            attacker = attacker,
+            defender = defender,
+            defenderHealth = health,
+            attackerIsPlayer = false,
+            isMelee = false
+        });
+
+        RecursiveCombatRequest(remaining - 1, attacker, defender, health);
     }
 
     void FlipSprite()
     {
-        float sx = player.position.x < transform.position.x ? -0.9f : 0.9f;
-        transform.localScale = new Vector3(sx, 0.9f, 1f);
+        float vx = rb.linearVelocity.x;
+        float faceDir = (Mathf.Abs(vx) > 0.05f)
+            ? (vx > 0 ? 0.9f : -0.9f)
+            : (player.position.x > transform.position.x ? 0.9f : -0.9f);
+
+        transform.localScale = new Vector3(faceDir, 0.9f, 1f);
+    }
+
+    void FixUI()
+    {
+        if (uiContainer != null)
+        {
+            Vector3 ls = uiContainer.localScale;
+            ls.x = Mathf.Abs(ls.x) * Mathf.Sign(transform.localScale.x);
+            uiContainer.localScale = ls;
+        }
     }
 }
