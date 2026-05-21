@@ -1,4 +1,6 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class WeaponController : MonoBehaviour
 {
@@ -16,20 +18,63 @@ public class WeaponController : MonoBehaviour
     public Transform shellTarget;
     public float shellForce = 5f;
 
+    [Header("Настройки патронов")]
+    public int magazineSize = 30;
+    public int maxReserveAmmo = 90;
+    public TextMeshProUGUI ammoText;
+
+    [Header("Настройки задержек")]
+    public float fireRate = 0.2f;
+    public float reloadTime = 1.5f;
+
+    private int currentAmmoInClip;
+    private int currentReserveAmmo;
+    private float fireTimer = 0f;
+    private bool isReloading = false;
+
+    void Start()
+    {
+        currentAmmoInClip = magazineSize;
+        currentReserveAmmo = maxReserveAmmo;
+        UpdateAmmoUI();
+    }
+
     void Update()
     {
+        if (isReloading) return;
+
+        if (fireTimer > 0f)
+        {
+            fireTimer -= Time.deltaTime;
+        }
+
         if (Input.GetMouseButton(1) && Input.GetMouseButtonDown(0))
         {
-            Shoot();
-            EjectShell();
+            if (currentAmmoInClip > 0 && fireTimer <= 0f)
+            {
+                Shoot();
+                EjectShell();
+                fireTimer = fireRate;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (currentAmmoInClip < magazineSize && currentReserveAmmo > 0)
+            {
+                StartCoroutine(ReloadRoutine());
+            }
         }
     }
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, firePointEnd.position, firePointEnd.rotation);
+        currentAmmoInClip--;
+        UpdateAmmoUI();
 
+        GameObject bullet = Instantiate(bulletPrefab, firePointEnd.position, firePointEnd.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+
         if (rb != null)
         {
             Vector2 dir = (firePointEnd.position - firePointStart.position).normalized;
@@ -57,5 +102,34 @@ public class WeaponController : MonoBehaviour
         }
 
         Destroy(shell, 2f);
+    }
+
+    IEnumerator ReloadRoutine()
+    {
+        isReloading = true;
+
+        if (ammoText != null)
+        {
+            ammoText.text = "RELOADING...";
+        }
+
+        yield return new WaitForSeconds(reloadTime);
+
+        int ammoNeeded = magazineSize - currentAmmoInClip;
+        int ammoToLoad = Mathf.Min(ammoNeeded, currentReserveAmmo);
+
+        currentAmmoInClip += ammoToLoad;
+        currentReserveAmmo -= ammoToLoad;
+
+        isReloading = false;
+        UpdateAmmoUI();
+    }
+
+    void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = $"{currentAmmoInClip} / {currentReserveAmmo}";
+        }
     }
 }

@@ -55,6 +55,7 @@ public class ProportionalSpawner : MonoBehaviour
     {
         while (totalRemaining > 0)
         {
+            TutorialManager.Instance.OnEnemySpawned();
             SpawnRandomEnemy();
             yield return new WaitForSeconds(spawnDelay);
         }
