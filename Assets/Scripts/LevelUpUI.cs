@@ -7,12 +7,10 @@ public class LevelUpUI : MonoBehaviour
 {
     public GameObject panel;
 
-    [Header("Три карты выбора")]
     public Button cardButton1;
     public Button cardButton2;
     public Button cardButton3;
 
-    [Header("Тексты карт")]
     public TextMeshProUGUI cardText1;
     public TextMeshProUGUI cardText2;
     public TextMeshProUGUI cardText3;
@@ -46,6 +44,10 @@ public class LevelUpUI : MonoBehaviour
         if (cardText2 != null) cardText2.text = upgradeNames[options[1]];
         if (cardText3 != null) cardText3.text = upgradeNames[options[2]];
 
+        SetButtonHoverColor(cardButton1, options[0]);
+        SetButtonHoverColor(cardButton2, options[1]);
+        SetButtonHoverColor(cardButton3, options[2]);
+
         if (panel != null)
         {
             panel.SetActive(true);
@@ -53,17 +55,49 @@ public class LevelUpUI : MonoBehaviour
         }
     }
 
-    void OnCardSelected(int buttonIndex)
+    private void SetButtonHoverColor(Button button, int upgradeIndex)
     {
-        if (currentOptions == null || buttonIndex >= currentOptions.Count) return;
+        if (button == null) return;
 
-        int exactUpgradeType = currentOptions[buttonIndex];
-        PlayerXP.Instance.SelectUpgrade(exactUpgradeType);
+        Color targetColor = Color.white;
 
-        if (panel != null)
+        switch (upgradeIndex)
         {
-            panel.SetActive(false);
+            case 0:
+                targetColor = new Color(1f, 0.92f, 0.016f);
+                break;
+            case 1:
+                targetColor = new Color(0.85f, 0.1f, 0.1f);
+                break;
+            case 2:
+                targetColor = new Color(0.35f, 0.75f, 1f);
+                break;
+            case 3:
+                targetColor = new Color(0.1f, 0.75f, 0.1f);
+                break;
+            case 4:
+                targetColor = new Color(0.6f, 0.2f, 0.8f);
+                break;
+            case 5:
+                targetColor = new Color(0.05f, 0.15f, 0.6f);
+                break;
         }
-        Time.timeScale = 1f;
+
+        ColorBlock cb = button.colors;
+        cb.highlightedColor = targetColor;
+        cb.selectedColor = targetColor;
+        button.colors = cb;
+    }
+
+    void OnCardSelected(int index)
+    {
+        if (currentOptions != null && index < currentOptions.Count)
+        {
+            int upgradeIndex = currentOptions[index];
+            if (PlayerXP.Instance != null)
+            {
+                PlayerXP.Instance.SelectUpgrade(upgradeIndex);
+            }
+        }
     }
 }
