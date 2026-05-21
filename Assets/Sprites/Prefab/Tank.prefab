@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7882652409443574578}
   - component: {fileID: 2836456320046708011}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HeartsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5955188888095093594}
   - component: {fileID: 4556370409377808676}
+  - component: {fileID: 8426549677025962211}
   - component: {fileID: 6839342649166584131}
   - component: {fileID: 5245199219701141818}
   - component: {fileID: 7339592589680291755}
@@ -79,7 +80,7 @@ GameObject:
   - component: {fileID: 870014897696966958}
   - component: {fileID: 1692653241661295724}
   - component: {fileID: 2766528833740967242}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Enemy_Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -118,6 +119,20 @@ MonoBehaviour:
   attackRange: 12
   attackCooldown: 1.5
   uiContainer: {fileID: 6731705641347346343}
+--- !u!114 &8426549677025962211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6760165255471893744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a343fde91fe5741afe2573334b3ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyXP
+  xpOrbPrefab: {fileID: 5886662811335532851, guid: 9558f5f844dda624b9a616bb188e6105, type: 3}
+  xpReward: 100
 --- !u!114 &6839342649166584131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +621,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 576126126321884574}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +656,7 @@ GameObject:
   - component: {fileID: 6341353816325044191}
   - component: {fileID: 3667025605074934007}
   - component: {fileID: 4326915042825282527}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

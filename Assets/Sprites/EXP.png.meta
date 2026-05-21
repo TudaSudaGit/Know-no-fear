@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-guid: 1b35635e133ee49419030781749dc98f
-AssetOrigin:
-  serializedVersion: 1
-  productId: 287862
-  packageName: Heart in pixel
-  packageVersion: 1.0
-  assetPath: Assets/MR3_2004/heart/Heart20.png
-  uploadId: 671617
+guid: 2b0f447281868804cad96ee8feaf994a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -8122256234953540473
+    second: EXP_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -104,67 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Heart20_0
+      name: EXP_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 1084
-        width: 905
-        height: 825
+        x: 316
+        y: 316
+        width: 648
+        height: 650
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0bfdcdd0631f85a4481a67a1a1a37fc1
-      internalID: 71456792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Heart20_1
-      rect:
-        serializedVersion: 2
-        x: 981
-        y: 1097
-        width: 902
-        height: 802
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5be248b5f71a0594599b6a2273937601
-      internalID: 1419355696
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Heart20_2
-      rect:
-        serializedVersion: 2
-        x: 1954
-        y: 1084
-        width: 874
-        height: 821
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4db299d754522634ca01c0ea50cb92c9
-      internalID: 1128615848
+      spriteID: 78c74e4ecf2f74f80800000000000000
+      internalID: -8122256234953540473
       vertices: []
       indices: 
       edges: []
@@ -173,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -183,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Heart20_0: 71456792
-      Heart20_1: 1419355696
-      Heart20_2: 1128615848
+      EXP_0: -8122256234953540473
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
