@@ -98,28 +98,18 @@ public class RangedEnemy : MonoBehaviour
 
     void ApplyCombatDamage()
     {
-        UnitStats myStats = GetComponent<UnitStats>();
-        Health targetHealth = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();
+        UnitStats myStats    = GetComponent<UnitStats>();
+        Health targetHealth  = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();
         UnitStats targetStats = player.GetComponentInParent<UnitStats>() ?? player.GetComponent<UnitStats>();
-
-        int attacks = (myStats != null) ? myStats.attacks : 1;
-        RecursiveCombatRequest(attacks, myStats, targetStats, targetHealth);
-    }
-
-    void RecursiveCombatRequest(int remaining, UnitStats attacker, UnitStats defender, Health health)
-    {
-        if (remaining <= 0) return;
 
         DiceRollPanel.Request(new DiceRollPanel.CombatRequest
         {
-            attacker = attacker,
-            defender = defender,
-            defenderHealth = health,
+            attacker        = myStats,
+            defender        = targetStats,
+            defenderHealth  = targetHealth,
             attackerIsPlayer = false,
-            isMelee = false
+            isMelee         = false
         });
-
-        RecursiveCombatRequest(remaining - 1, attacker, defender, health);
     }
 
     void FlipSprite()

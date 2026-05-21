@@ -9,8 +9,7 @@ public class UnitStats : MonoBehaviour
     [Header("Оружие")]
     public int strength         = 4;
     public int damage           = 1;
-    public int attacks          = 1;
-    public int armorPenetration = 0;
+    public int armorPenetration = 0;   // положительное число: AP-2 → пишем 2
 
     [Header("Защита")]
     public int toughness             = 4;

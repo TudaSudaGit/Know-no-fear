@@ -24,8 +24,8 @@ public class DiceRollPanel : MonoBehaviour
     private static readonly Color C_PLAYER  = new Color(1.00f, 0.84f, 0.05f, 1f);
     private static readonly Color C_ENEMY   = new Color(0.52f, 0.20f, 0.84f, 1f);
     private static readonly Color C_BG      = new Color(0.06f, 0.06f, 0.12f, 0.96f);
-    private static readonly Color C_SUCCESS = new Color(0.18f, 0.90f, 0.44f, 1f);
-    private static readonly Color C_FAIL    = new Color(0.92f, 0.22f, 0.22f, 1f);
+    private static readonly Color C_SUCCESS = new Color(0.18f, 0.90f, 0.44f, 1f); // зелёный — хорошо для игрока
+    private static readonly Color C_FAIL    = new Color(0.92f, 0.22f, 0.22f, 1f); // красный — плохо для игрока
     private static readonly Color C_INFO    = new Color(0.35f, 0.70f, 1.00f, 1f);
 
     public struct CombatRequest
@@ -97,10 +97,10 @@ public class DiceRollPanel : MonoBehaviour
         int woundRoll = Random.Range(1, 7);
         int saveRoll  = Random.Range(1, 7);
 
-        bool hit      = hitRoll   >= hitSkill;
-        bool wound    = hit   && woundRoll >= WoundThreshold(strength, toughness);
-        bool saved    = wound && modSave <= 6 && saveRoll >= modSave;
-        bool dmgDone  = wound && !saved;
+        bool hit     = hitRoll   >= hitSkill;
+        bool wound   = hit   && woundRoll >= WoundThreshold(strength, toughness);
+        bool saved   = wound && modSave <= 6 && saveRoll >= modSave;
+        bool dmgDone = wound && !saved;
 
         Debug.Log($"[Dice] hit={hit}({hitRoll}>={hitSkill})  wound={wound}({woundRoll}>={WoundThreshold(strength,toughness)})  save={saved}({saveRoll}>={modSave})  dmg={dmgDone}");
 
@@ -114,38 +114,57 @@ public class DiceRollPanel : MonoBehaviour
             Debug.LogWarning("[Dice] dmgDone=true но defenderHealth == null!");
         }
 
+        // ---- Правило цветов (всегда с точки зрения ИГРОКА) ----
+        // Зелёный = хорошо для игрока:
+        //   атакует игрок  → попадание хорошо, рана хорошо, не спасён хорошо
+        //   атакует враг   → промах хорошо,   нет раны хорошо, спасён хорошо
+        bool hitGood   = hit   == req.attackerIsPlayer;   // игрок попал ИЛИ враг промахнулся
+        bool woundGood = wound == req.attackerIsPlayer;   // игрок пробил ИЛИ враг не пробил
+        bool saveGood  = saved != req.attackerIsPlayer;   // враг спасся (плохо) ИЛИ игрок спасся (хорошо)
+
         CardData cd = SpawnCard(req);
         yield return StartCoroutine(FadeIn(cd));
 
         yield return StartCoroutine(AnimateDie(cd.dice[0], hitRoll));
-        FinishDie(cd.dice[0], hit);
+        FinishDie(cd.dice[0], hit, hitGood);
         yield return new WaitForSeconds(PAUSE);
 
         if (!hit)
         {
-            ShowFinal(cd, "ПРОМАХ", C_FAIL);
+            Color missColor = req.attackerIsPlayer ? C_FAIL : C_SUCCESS;
+            ShowFinal(cd, "ПРОМАХ", missColor);
             yield return new WaitForSeconds(1.8f);
             yield return StartCoroutine(FadeOut(cd));
             yield break;
         }
 
         yield return StartCoroutine(AnimateDie(cd.dice[1], woundRoll));
-        FinishDie(cd.dice[1], wound);
+        FinishDie(cd.dice[1], wound, woundGood);
         yield return new WaitForSeconds(PAUSE);
 
         if (!wound)
         {
-            ShowFinal(cd, "БЕЗ РАНЫ", C_INFO);
+            Color noWoundColor = req.attackerIsPlayer ? C_FAIL : C_SUCCESS;
+            ShowFinal(cd, "БЕЗ РАНЫ", noWoundColor);
             yield return new WaitForSeconds(1.8f);
             yield return StartCoroutine(FadeOut(cd));
             yield break;
         }
 
         yield return StartCoroutine(AnimateDie(cd.dice[2], saveRoll));
-        FinishDie(cd.dice[2], saved);
+        FinishDie(cd.dice[2], saved, saveGood);
         yield return new WaitForSeconds(PAUSE);
 
-        ShowFinal(cd, saved ? "СОХРАНЁН" : $"РАНА -{dmg}", saved ? C_INFO : C_FAIL);
+        if (saved)
+        {
+            Color savedColor = req.attackerIsPlayer ? C_FAIL : C_SUCCESS;
+            ShowFinal(cd, "СОХРАНЁН", savedColor);
+        }
+        else
+        {
+            Color woundedColor = req.attackerIsPlayer ? C_SUCCESS : C_FAIL;
+            ShowFinal(cd, $"РАНА -{dmg}", woundedColor);
+        }
 
         yield return new WaitForSeconds(2.2f);
         yield return StartCoroutine(FadeOut(cd));
@@ -322,13 +341,19 @@ public class DiceRollPanel : MonoBehaviour
         if (dv.num) dv.num.text = finalRoll.ToString();
     }
 
-    void FinishDie(DiceView dv, bool success)
+    // rollSucceeded — реально ли прошёл бросок (для текста OK/--)
+    // isGood       — хорошо ли это для ИГРОКА (для цвета)
+    void FinishDie(DiceView dv, bool rollSucceeded, bool isGood)
     {
-        if (dv.result) { dv.result.text = success ? "OK" : "--"; dv.result.color = success ? C_SUCCESS : C_FAIL; }
-        if (!success)
+        if (dv.result)
         {
-            if (dv.bg)  { Color c = dv.bg.color;  dv.bg.color  = new Color(c.r,c.g,c.b,.20f); }
-            if (dv.num) { Color n = dv.num.color; dv.num.color = new Color(n.r,n.g,n.b,.20f); }
+            dv.result.text  = rollSucceeded ? "OK" : "--";
+            dv.result.color = isGood ? C_SUCCESS : C_FAIL;
+        }
+        if (!isGood) // приглушаем кубик при плохом исходе
+        {
+            if (dv.bg)  { Color c = dv.bg.color;  dv.bg.color  = new Color(c.r, c.g, c.b, .20f); }
+            if (dv.num) { Color n = dv.num.color; dv.num.color = new Color(n.r, n.g, n.b, .20f); }
         }
     }
 
@@ -337,19 +362,26 @@ public class DiceRollPanel : MonoBehaviour
         if (cd.final) { cd.final.text = text; cd.final.color = color; }
     }
 
-    int HitSkill(CombatRequest r) { if (r.attacker == null) return 4; return r.isMelee ? r.attacker.weaponSkill : r.attacker.ballisticSkill; }
-    int Str(CombatRequest r)      => r.attacker != null ? r.attacker.strength         : 4;
-    int Tough(CombatRequest r)    => r.defender != null ? r.defender.toughness         : 4;
-    int ModSave(CombatRequest r)  => (r.defender != null ? r.defender.save : 5) + (r.attacker != null ? r.attacker.armorPenetration : 0);
-    int Dmg(CombatRequest r)      => r.attacker != null ? r.attacker.damage            : 1;
+    int HitSkill(CombatRequest r) => r.attacker == null ? 4 : (r.isMelee ? r.attacker.weaponSkill : r.attacker.ballisticSkill);
+    int Str(CombatRequest r)      => r.attacker != null ? r.attacker.strength     : 4;
+    int Tough(CombatRequest r)    => r.defender != null ? r.defender.toughness    : 4;
+    int Dmg(CombatRequest r)      => r.attacker != null ? r.attacker.damage       : 1;
+
+    // AP всегда берём по модулю: в инспекторе можно писать как 2, так и -2
+    int ModSave(CombatRequest r)
+    {
+        int baseSave = r.defender != null ? r.defender.save : 5;
+        int ap       = r.attacker != null ? Mathf.Abs(r.attacker.armorPenetration) : 0;
+        return baseSave + ap;
+    }
 
     int WoundThreshold(int str, int tough)
     {
-        if (str >= tough * 2) return 2;
-        if (str > tough)      return 3;
-        if (str == tough)     return 4;
-        if (str * 2 <= tough) return 6;
-        return 5;
+        if (str >= tough * 2) return 2;   // S >= 2T  → 2+
+        if (str > tough)      return 3;   // S > T    → 3+
+        if (str == tough)     return 4;   // S = T    → 4+
+        if (tough >= str * 2) return 6;   // T >= 2S  → 6+
+        return 5;                          // T > S    → 5+
     }
 
     Image MkImg(Transform parent, string name, Color color,

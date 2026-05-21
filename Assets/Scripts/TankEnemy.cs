@@ -60,30 +60,20 @@ public class TankEnemy : MonoBehaviour
 
         if (targetHealth == null || !targetHealth.gameObject.CompareTag("Player")) return;
 
-        UnitStats myStats = GetComponent<UnitStats>();
+        UnitStats myStats    = GetComponent<UnitStats>();
         UnitStats targetStats = other.GetComponentInParent<UnitStats>()
                              ?? other.GetComponent<UnitStats>();
 
-        int atkCount = myStats != null ? myStats.attacks : 1;
-        ExecuteCombat(atkCount, myStats, targetStats, targetHealth);
-
-        isAttacking = false;
-    }
-
-    void ExecuteCombat(int count, UnitStats attacker, UnitStats defender, Health hp)
-    {
-        if (count <= 0) return;
-
         DiceRollPanel.Request(new DiceRollPanel.CombatRequest
         {
-            attacker = attacker,
-            defender = defender,
-            defenderHealth = hp,
+            attacker        = myStats,
+            defender        = targetStats,
+            defenderHealth  = targetHealth,
             attackerIsPlayer = false,
-            isMelee = true
+            isMelee         = true
         });
 
-        ExecuteCombat(count - 1, attacker, defender, hp);
+        isAttacking = false;
     }
 
     void StartAttack()
