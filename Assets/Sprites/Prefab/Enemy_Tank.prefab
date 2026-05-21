@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2422473808143631981}
   - component: {fileID: 1616289413119813126}
   - component: {fileID: 3507899034088051267}
+  - component: {fileID: -4521589039334714516}
   m_Layer: 8
   m_Name: Enemy_Tank
   m_TagString: Enemy
@@ -87,8 +88,6 @@ MonoBehaviour:
   currentHealth: 0
   isPlayerHealth: 0
   healthContainer: {fileID: 4034827450935696963}
-  xpPrefab: {fileID: 5886662811335532851, guid: 9558f5f844dda624b9a616bb188e6105, type: 3}
-  xpAmount: 25
 --- !u!114 &2804867897558833115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,6 +551,27 @@ CapsuleCollider2D:
   m_Offset: {x: -0.3410102, y: -2.7030964}
   m_Size: {x: 5.5989237, y: 0.28370014}
   m_Direction: 1
+--- !u!114 &-4521589039334714516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713651504863646065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416b7e8f4e3331540b4b739b0a14c5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitStats
+  ballisticSkill: 7
+  weaponSkill: 3
+  strength: 7
+  damage: 2
+  attacks: 1
+  armorPenetration: -2
+  toughness: 6
+  save: 5
+  wounds: 3
 --- !u!1 &1945689051325654657
 GameObject:
   m_ObjectHideFlags: 0

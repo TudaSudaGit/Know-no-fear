@@ -1576,6 +1576,7 @@ GameObject:
   - component: {fileID: 428144070}
   - component: {fileID: 428144072}
   - component: {fileID: 428144073}
+  - component: {fileID: 428144074}
   m_Layer: 6
   m_Name: Player_Root
   m_TagString: Player
@@ -1939,6 +1940,27 @@ MonoBehaviour:
   toughness: 4
   save: 5
   wounds: 5
+--- !u!114 &428144074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428144064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416b7e8f4e3331540b4b739b0a14c5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitStats
+  ballisticSkill: 3
+  weaponSkill: 3
+  strength: 4
+  damage: 1
+  attacks: 1
+  armorPenetration: 1
+  toughness: 4
+  save: 3
+  wounds: 2
 --- !u!1 &431932256
 GameObject:
   m_ObjectHideFlags: 0
