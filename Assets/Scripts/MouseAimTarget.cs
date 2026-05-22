@@ -107,6 +107,9 @@ public class MouseAimTarget : MonoBehaviour
                     rect.anchoredPosition = localPoint;
                 }
 
+                float size = GameSettings.CrosshairSize;
+                rect.localScale = new Vector3(size, size, 1f);
+
                 if (hideSystemCursor) Cursor.visible = false;
             }
             else

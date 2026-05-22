@@ -59,7 +59,6 @@ public class ProportionalSpawner : MonoBehaviour
             SpawnRandomEnemy();
             yield return new WaitForSeconds(spawnDelay);
         }
-        Debug.Log("Все враги из точки заспавнены!");
     }
 
     void SpawnRandomEnemy()
@@ -76,7 +75,7 @@ public class ProportionalSpawner : MonoBehaviour
             if (randomTicket <= currentRange)
             {
                 Vector2 offset = Random.insideUnitCircle * spawnRadius;
-                Instantiate(enemiesToSpawn[i].prefab, transform.position + (Vector3)offset, Quaternion.identity);
+                Instantiate(enemiesToSpawn[i].prefab, transform.position + (Vector3)offset, Quaternion.identity, transform);
 
                 var group = enemiesToSpawn[i];
                 group.count--;

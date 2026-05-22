@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1616289413119813126}
   - component: {fileID: 3507899034088051267}
   - component: {fileID: -4521589039334714516}
+  - component: {fileID: 1437084952019565763}
   m_Layer: 8
   m_Name: Enemy_Tank
   m_TagString: Enemy
@@ -571,6 +572,19 @@ MonoBehaviour:
   toughness: 6
   save: 5
   wounds: 3
+--- !u!114 &1437084952019565763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713651504863646065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084204f818e758f4e8a0e8964c7ca3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyModifier
+  isPlayer: 0
 --- !u!1 &1945689051325654657
 GameObject:
   m_ObjectHideFlags: 0
