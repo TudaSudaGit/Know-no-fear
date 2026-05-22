@@ -1923,7 +1923,7 @@ Transform:
   - {fileID: 2089151813}
   - {fileID: 1917147803}
   - {fileID: 1259959674}
-  - {fileID: 1472192116}
+  - {fileID: 1489655683}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &272053510
@@ -2350,6 +2350,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!1 &357683560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 357683561}
+  m_Layer: 0
+  m_Name: ArmorSpawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &357683561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357683560}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 107.20001, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1259959674}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &392355147
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,6 +2865,8 @@ GameObject:
   - component: {fileID: 428144072}
   - component: {fileID: 428144073}
   - component: {fileID: 428144074}
+  - component: {fileID: 428144076}
+  - component: {fileID: 428144075}
   m_Layer: 6
   m_Name: Player_Root
   m_TagString: Player
@@ -3196,7 +3229,7 @@ MonoBehaviour:
   toughness: 4
   save: 5
   wounds: 5
-  armorPoints: 0
+  armorPoints: 1
 --- !u!114 &428144074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3210,6 +3243,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DifficultyModifier
   isPlayer: 1
+--- !u!114 &428144075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428144064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c70ad895aa4244f9c78f8a5db33613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCurseHandler
+--- !u!114 &428144076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428144064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe847da88271484499cbdacdbfd9ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurseVignette
 --- !u!1 &431932256
 GameObject:
   m_ObjectHideFlags: 0
@@ -4455,9 +4512,9 @@ MonoBehaviour:
   - name: Tank
     prefab: {fileID: 7848667539746625697, guid: 8c38da8d392a8874f85e432fcffbb932, type: 3}
     count: 2
-  - name: Ranged
-    prefab: {fileID: 6097723559274091868, guid: 0eb5305ca5956124db77515005ba4fb5, type: 3}
-    count: 3
+  - name: Mage
+    prefab: {fileID: 8011567372756424299, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+    count: 1
   activationRange: 30
   spawnDelay: 2
   spawnRadius: 0
@@ -8281,6 +8338,37 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1239640267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1239640268}
+  m_Layer: 0
+  m_Name: ArmorSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1239640268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239640267}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 49.700012, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1489655683}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1240291097
 GameObject:
   m_ObjectHideFlags: 0
@@ -8866,7 +8954,9 @@ Transform:
   m_LocalPosition: {x: -539, y: -224.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1472192116}
+  - {fileID: 357683561}
   m_Father: {fileID: 264863518}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1259959675
@@ -8884,7 +8974,9 @@ MonoBehaviour:
   armorPickupPrefab: {fileID: 6076829926575813848, guid: 4511155d5f56eeb4c95a138d53c5d911, type: 3}
   spawnPoints:
   - spawnPoint: {fileID: 1472192116}
-    spawnChance: 100
+    spawnChance: 70
+  - spawnPoint: {fileID: 357683561}
+    spawnChance: 50
   minArmor: 1
   maxArmor: 3
   armorValue: 1
@@ -9792,7 +9884,7 @@ MonoBehaviour:
   enemiesToSpawn:
   - name: Tank
     prefab: {fileID: 7848667539746625697, guid: 8c38da8d392a8874f85e432fcffbb932, type: 3}
-    count: 0
+    count: 1
   - name: Ranged
     prefab: {fileID: 6097723559274091868, guid: 0eb5305ca5956124db77515005ba4fb5, type: 3}
     count: 2
@@ -9929,12 +10021,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472192115}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -539, y: -224.2, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 49.700012, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 264863518}
+  m_Father: {fileID: 1259959674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1478556279
 GameObject:
@@ -10074,6 +10166,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 444218446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1489655682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1489655683}
+  - component: {fileID: 1489655684}
+  m_Layer: 0
+  m_Name: ArmorSpawnerManager (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1489655683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489655682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -539, y: -287.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1239640268}
+  - {fileID: 1553883282}
+  m_Father: {fileID: 264863518}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1489655684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489655682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a729297db90e8f4f8cd3ebb4a55183c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  armorPickupPrefab: {fileID: 6076829926575813848, guid: 4511155d5f56eeb4c95a138d53c5d911, type: 3}
+  spawnPoints:
+  - spawnPoint: {fileID: 1239640268}
+    spawnChance: 50
+  - spawnPoint: {fileID: 1553883282}
+    spawnChance: 50
+  minArmor: 1
+  maxArmor: 3
+  armorValue: 1
 --- !u!1 &1516115549
 GameObject:
   m_ObjectHideFlags: 0
@@ -10257,63 +10404,37 @@ MonoBehaviour:
   m_labelHash: 1.4945901e-15
   m_SpriteKey: 0
   m_SpriteHash: 803202816
---- !u!1001 &1576788587
-PrefabInstance:
+--- !u!1 &1553883281
+GameObject:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1553883282}
+  m_Layer: 0
+  m_Name: ArmorSpawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1553883282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553883281}
   serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2868084509587083388, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_Name
-      value: MageEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -47.1111
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.15309572
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805618996886040419, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2931661739a051e4bba9e77ceccae86d, type: 3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 73.2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1489655683}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1586250280
 GameObject:
   m_ObjectHideFlags: 0
@@ -10932,12 +11053,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemiesToSpawn:
-  - name: Tank
-    prefab: {fileID: 7848667539746625697, guid: 8c38da8d392a8874f85e432fcffbb932, type: 3}
-    count: 0
+  - name: Mage
+    prefab: {fileID: 8011567372756424299, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+    count: 1
   - name: Ranged
     prefab: {fileID: 6097723559274091868, guid: 0eb5305ca5956124db77515005ba4fb5, type: 3}
-    count: 4
+    count: 2
   activationRange: 30
   spawnDelay: 2
   spawnRadius: 0
@@ -13898,4 +14019,3 @@ SceneRoots:
   - {fileID: 264863518}
   - {fileID: 1957580701}
   - {fileID: 1121513462}
-  - {fileID: 1576788587}
