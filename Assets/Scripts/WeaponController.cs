@@ -125,6 +125,12 @@ public class WeaponController : MonoBehaviour
         UpdateAmmoUI();
     }
 
+    public void AddReserveAmmo(int amount)
+    {
+        currentReserveAmmo = Mathf.Min(currentReserveAmmo + amount, maxReserveAmmo);
+        UpdateAmmoUI();
+    }
+
     void UpdateAmmoUI()
     {
         if (ammoText != null)

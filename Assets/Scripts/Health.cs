@@ -81,16 +81,24 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0) Die();
     }
 
+
     void Die()
     {
-        Debug.Log(gameObject.name + " погиб!");
-
-        EnemyXP enemyXP = GetComponent<EnemyXP>();
-        if (enemyXP != null)
+        if (isPlayerHealth)
         {
-            enemyXP.DropXP();
+            if (GameOverManager.Instance != null)
+            {
+                GameOverManager.Instance.ShowGameOver();
+            }
         }
-
-        Destroy(gameObject);
+        else
+        {
+            EnemyXP enemyXP = GetComponent<EnemyXP>();
+            if (enemyXP != null)
+            {
+                enemyXP.DropXP();
+            }
+            Destroy(gameObject);
+        }
     }
 }
