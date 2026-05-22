@@ -4,6 +4,8 @@ using System.Collections;
 
 public class WeaponController : MonoBehaviour
 {
+    public static WeaponController Instance { get; private set; }
+
     [Header("Настройки пули")]
     public GameObject bulletPrefab;
     public float bulletForce = 20f;
@@ -32,10 +34,23 @@ public class WeaponController : MonoBehaviour
     private float fireTimer = 0f;
     private bool isReloading = false;
 
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
-        currentAmmoInClip  = magazineSize;
-        currentReserveAmmo = maxReserveAmmo;
+        if (GameSettings.IsGameSaved && PlayerPrefs.HasKey("SavedAmmoClip"))
+        {
+            currentAmmoInClip = PlayerPrefs.GetInt("SavedAmmoClip");
+            currentReserveAmmo = PlayerPrefs.GetInt("SavedAmmoReserve");
+        }
+        else
+        {
+            currentAmmoInClip = magazineSize;
+            currentReserveAmmo = maxReserveAmmo;
+        }
         UpdateAmmoUI();
     }
 
@@ -49,7 +64,7 @@ public class WeaponController : MonoBehaviour
         if (fireTimer > 0f)
             fireTimer -= Time.deltaTime;
 
-        bool inverted    = PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsInverted;
+        bool inverted = PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsInverted;
         bool shootBlocked = PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsShootBlocked;
 
         bool fireInput = inverted
@@ -124,7 +139,7 @@ public class WeaponController : MonoBehaviour
         int ammoNeeded = magazineSize - currentAmmoInClip;
         int ammoToLoad = Mathf.Min(ammoNeeded, currentReserveAmmo);
 
-        currentAmmoInClip  += ammoToLoad;
+        currentAmmoInClip += ammoToLoad;
         currentReserveAmmo -= ammoToLoad;
 
         isReloading = false;
@@ -141,5 +156,12 @@ public class WeaponController : MonoBehaviour
     {
         if (ammoText != null)
             ammoText.text = $"{currentAmmoInClip} / {currentReserveAmmo}";
+    }
+
+    public void SaveAmmoData()
+    {
+        PlayerPrefs.SetInt("SavedAmmoClip", currentAmmoInClip);
+        PlayerPrefs.SetInt("SavedAmmoReserve", currentReserveAmmo);
+        PlayerPrefs.Save();
     }
 }

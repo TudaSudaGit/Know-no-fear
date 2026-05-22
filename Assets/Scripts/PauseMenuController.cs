@@ -67,6 +67,18 @@ public class PauseMenuController : MonoBehaviour
             PlayerPrefs.SetFloat("PlayerX", player.transform.position.x);
             PlayerPrefs.SetFloat("PlayerY", player.transform.position.y);
         }
+        if (WeaponController.Instance != null)
+        {
+            WeaponController.Instance.SaveAmmoData();
+        }
+        if (player != null)
+        {
+            UnitStats playerStats = player.GetComponent<UnitStats>();
+            if (playerStats != null)
+            {
+                PlayerPrefs.SetInt("SavedPlayerArmor", playerStats.armorPoints);
+            }
+        }
         PlayerPrefs.Save();
         GameSettings.IsGameSaved = true;
     }
@@ -88,12 +100,6 @@ public class PauseMenuController : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void CancelExit()
-    {
-        confirmationPanel.SetActive(false);
-        pausePanel.SetActive(true);
+        SceneManager.LoadScene(0);
     }
 }

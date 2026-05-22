@@ -14,17 +14,37 @@ public class Health : MonoBehaviour
     public Transform healthContainer;
 
     private TextMeshProUGUI cubeText;
+    private TextMeshProUGUI armorText;
     private Image cubeImage;
+    private GameObject armorCube;
+    private UnitStats cachedStats;
 
     private static readonly Color PLAYER_COLOR = new Color(1.00f, 0.84f, 0.05f);
     private static readonly Color ENEMY_COLOR = new Color(0.52f, 0.20f, 0.84f);
+    private static readonly Color ARMOR_COLOR = new Color(0.45f, 0.55f, 0.62f);
 
     void Start()
     {
-        UnitStats stats = GetComponent<UnitStats>();
-        if (stats != null) maxHealth = stats.wounds;
+        cachedStats = GetComponent<UnitStats>();
+        if (cachedStats != null) maxHealth = cachedStats.wounds;
         currentHealth = maxHealth;
         if (healthContainer != null) SetupUI();
+    }
+
+    void Update()
+    {
+        if (cachedStats != null && armorCube != null && armorText != null)
+        {
+            if (cachedStats.armorPoints > 0)
+            {
+                armorCube.SetActive(true);
+                armorText.text = cachedStats.armorPoints.ToString();
+            }
+            else
+            {
+                armorCube.SetActive(false);
+            }
+        }
     }
 
     void SetupUI()
@@ -64,6 +84,42 @@ public class Health : MonoBehaviour
         trt.offsetMax = Vector2.zero;
 
         cubeText = tmp;
+
+        armorCube = new GameObject("ArmorCube");
+        armorCube.transform.SetParent(healthContainer, false);
+
+        Image armorImg = armorCube.AddComponent<Image>();
+        armorImg.color = ARMOR_COLOR;
+
+        RectTransform art = armorCube.GetComponent<RectTransform>();
+        art.sizeDelta = new Vector2(120f, 120f);
+
+        Outline aOl = armorCube.AddComponent<Outline>();
+        aOl.effectColor = new Color(0f, 0f, 0f, 0.80f);
+        aOl.effectDistance = new Vector2(3f, -3f);
+
+        GameObject armorTextGO = new GameObject("ArmorNum");
+        armorTextGO.transform.SetParent(armorCube.transform, false);
+
+        TextMeshProUGUI armTmp = armorTextGO.AddComponent<TextMeshProUGUI>();
+        armTmp.text = "";
+        armTmp.fontSize = 64f;
+        armTmp.fontStyle = FontStyles.Bold;
+        armTmp.color = Color.white;
+        armTmp.alignment = TextAlignmentOptions.Center;
+
+        RectTransform atrt = armorTextGO.GetComponent<RectTransform>();
+        atrt.anchorMin = Vector2.zero;
+        atrt.anchorMax = Vector2.one;
+        atrt.offsetMin = Vector2.zero;
+        atrt.offsetMax = Vector2.zero;
+
+        armorText = armTmp;
+
+        if (cachedStats != null)
+        {
+            armorCube.SetActive(cachedStats.armorPoints > 0);
+        }
     }
 
     public void TakeDamage(int dmg) => ApplyDamage(dmg);
@@ -80,7 +136,6 @@ public class Health : MonoBehaviour
         }
         if (currentHealth <= 0) Die();
     }
-
 
     void Die()
     {
