@@ -34,21 +34,29 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
-        currentAmmoInClip = magazineSize;
+        currentAmmoInClip  = magazineSize;
         currentReserveAmmo = maxReserveAmmo;
         UpdateAmmoUI();
     }
 
     void Update()
     {
+        if (PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsQCurseActive)
+            return;
+
         if (isReloading) return;
 
         if (fireTimer > 0f)
-        {
             fireTimer -= Time.deltaTime;
-        }
 
-        if (Input.GetMouseButton(1) && Input.GetMouseButtonDown(0))
+        bool inverted    = PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsInverted;
+        bool shootBlocked = PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsShootBlocked;
+
+        bool fireInput = inverted
+            ? (Input.GetMouseButton(0) && Input.GetMouseButtonDown(1))
+            : (Input.GetMouseButton(1) && Input.GetMouseButtonDown(0));
+
+        if (!shootBlocked && fireInput)
         {
             if (currentAmmoInClip > 0 && fireTimer <= 0f)
             {
@@ -109,16 +117,14 @@ public class WeaponController : MonoBehaviour
         isReloading = true;
 
         if (ammoText != null)
-        {
             ammoText.text = "RELOADING...";
-        }
 
         yield return new WaitForSeconds(reloadTime);
 
         int ammoNeeded = magazineSize - currentAmmoInClip;
         int ammoToLoad = Mathf.Min(ammoNeeded, currentReserveAmmo);
 
-        currentAmmoInClip += ammoToLoad;
+        currentAmmoInClip  += ammoToLoad;
         currentReserveAmmo -= ammoToLoad;
 
         isReloading = false;
@@ -134,8 +140,6 @@ public class WeaponController : MonoBehaviour
     void UpdateAmmoUI()
     {
         if (ammoText != null)
-        {
             ammoText.text = $"{currentAmmoInClip} / {currentReserveAmmo}";
-        }
     }
 }

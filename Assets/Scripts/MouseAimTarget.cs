@@ -27,6 +27,7 @@ public class MouseAimTarget : MonoBehaviour
     public float weightSmoothSpeed = 10f;
 
     private float targetWeight = 0f;
+
     [Header("Настройки изменения цвета прицела")]
     public CrosshairColor crosshairColorScript;
     public LayerMask enemyLayer;
@@ -42,13 +43,23 @@ public class MouseAimTarget : MonoBehaviour
     {
         if (shoulder == null || Camera.main == null || playerRoot == null) return;
 
-        bool isAiming = Input.GetMouseButton(1);
+        if (PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsQCurseActive)
+        {
+            targetWeight = 0f;
+            UpdateVisualCrosshair(false);
+            if (ikManager != null)
+                ikManager.weight = Mathf.Lerp(ikManager.weight, 0f, Time.deltaTime * weightSmoothSpeed);
+            return;
+        }
+
+        bool inverted = PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsInverted;
+        bool isAiming = inverted ? Input.GetMouseButton(0) : Input.GetMouseButton(1);
 
         if (isAiming)
         {
             targetWeight = 1f;
             UpdateVisualCrosshair(true);
-            HandleAimingAndFlip();
+            HandleAimingAndFlip(inverted);
         }
         else
         {
@@ -57,21 +68,16 @@ public class MouseAimTarget : MonoBehaviour
         }
 
         if (ikManager != null)
-        {
             ikManager.weight = Mathf.Lerp(ikManager.weight, targetWeight, Time.deltaTime * weightSmoothSpeed);
-        }
+
         if (crosshairColorScript != null)
         {
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = -Camera.main.transform.position.z;
             Vector2 worldMousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
             RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero, 0f, enemyLayer);
-
             if (hit.collider != null && hit.collider.CompareTag("Enemy"))
-            {
                 crosshairColorScript.SetOverEnemy();
-            }
         }
     }
 
@@ -110,12 +116,21 @@ public class MouseAimTarget : MonoBehaviour
         }
     }
 
-    private void HandleAimingAndFlip()
+    private void HandleAimingAndFlip(bool inverted)
     {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = -Camera.main.transform.position.z;
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(mousePos);
         worldMousePos.z = 0f;
+
+        // При инверсии зеркалим позицию мыши относительно персонажа
+        if (inverted)
+        {
+            float dx = worldMousePos.x - playerRoot.position.x;
+            float dy = worldMousePos.y - playerRoot.position.y;
+            worldMousePos.x = playerRoot.position.x - dx;
+            worldMousePos.y = playerRoot.position.y - dy;
+        }
 
         bool isWalking = false;
         if (animator != null)

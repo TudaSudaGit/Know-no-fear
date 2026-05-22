@@ -28,7 +28,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (animator == null) return;
 
+        // Полная блокировка при проклятье Q
+        if (PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsQCurseActive)
+        {
+            horizontalInput = 0f;
+            keepMoving = false;
+            animator.SetFloat("Speed", 0f);
+            FixUI();
+            return;
+        }
+
         horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        // Инверсия управления
+        if (PlayerCurseHandler.Instance != null && PlayerCurseHandler.Instance.IsInverted)
+            horizontalInput = -horizontalInput;
+
         bool hasInput = Mathf.Abs(horizontalInput) > 0.01f;
 
         if (hasInput)
