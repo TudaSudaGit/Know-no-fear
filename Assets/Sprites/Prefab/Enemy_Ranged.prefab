@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 3454111959088149903}
   - component: {fileID: 8761944447348662394}
   - component: {fileID: -8548581672269621060}
+  - component: {fileID: -3860610797192605250}
   m_Layer: 8
   m_Name: Enemy_Ranged
   m_TagString: Enemy
@@ -427,7 +428,20 @@ MonoBehaviour:
   armorPenetration: 0
   toughness: 3
   save: 5
-  wounds: 1
+  wounds: 2
+--- !u!114 &-3860610797192605250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839078821075074085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084204f818e758f4e8a0e8964c7ca3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyModifier
+  isPlayer: 0
 --- !u!1 &6396175841064950928
 GameObject:
   m_ObjectHideFlags: 0
