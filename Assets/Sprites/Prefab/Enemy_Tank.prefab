@@ -568,7 +568,7 @@ MonoBehaviour:
   strength: 7
   damage: 2
   armorPenetration: -2
-  toughness: 4
+  toughness: 6
   save: 5
   wounds: 3
 --- !u!1 &1945689051325654657
