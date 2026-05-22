@@ -7,11 +7,10 @@ public class RangedEnemy : MonoBehaviour
     public float shootRange = 6f;
     public float retreatRange = 3f;
     public Transform uiContainer;
-
     public Transform firePoint;
     public float shootCooldown = 2f;
-    private float shootTimer = 0f;
 
+    private float shootTimer = 0f;
     private Transform player;
     private Rigidbody2D rb;
     private Animator animator;
@@ -27,12 +26,10 @@ public class RangedEnemy : MonoBehaviour
     void Update()
     {
         if (player == null) return;
-
         float dist = Vector2.Distance(transform.position, player.position);
-
         UpdateCooldown();
         HandleState(dist);
-        FlipSprite();
+        FlipToPlayer();
         FixUI();
     }
 
@@ -43,92 +40,44 @@ public class RangedEnemy : MonoBehaviour
 
     void HandleState(float dist)
     {
-        if (dist <= retreatRange) StateRetreat();
+        if (dist <= retreatRange) return;
         else if (dist <= shootRange) StateAttack();
-        else if (dist <= detectionRange) StateApproach();
-        else StateIdle();
-    }
-
-    void StateRetreat()
-    {
-        Vector2 dir = (transform.position - player.position).normalized;
-        rb.linearVelocity = new Vector2(dir.x * moveSpeed, rb.linearVelocity.y);
-        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
-        animator.ResetTrigger("Attack");
     }
 
     void StateAttack()
     {
-        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        animator.SetFloat("Speed", 0f);
-
         if (shootTimer <= 0f)
         {
-            animator.SetTrigger("Attack");
             shootTimer = shootCooldown;
+            ApplyCombatDamage();
         }
-    }
-
-    void StateApproach()
-    {
-        Vector2 dir = (player.position - transform.position).normalized;
-        rb.linearVelocity = new Vector2(dir.x * moveSpeed, rb.linearVelocity.y);
-        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
-        animator.ResetTrigger("Attack");
-    }
-
-    void StateIdle()
-    {
-        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        animator.SetFloat("Speed", 0f);
-        animator.ResetTrigger("Attack");
-    }
-
-    public void SpawnBullet()
-    {
-        if (player == null) return;
-
-        Vector3 origin = firePoint != null ? firePoint.position : transform.position;
-        GameObject laserObj = new GameObject("Laser");
-        LaserBeam beam = laserObj.AddComponent<LaserBeam>();
-        beam.Fire(origin, player.position);
-
-        ApplyCombatDamage();
     }
 
     void ApplyCombatDamage()
     {
-        UnitStats myStats    = GetComponent<UnitStats>();
-        Health targetHealth  = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();
+        UnitStats myStats = GetComponent<UnitStats>();
         UnitStats targetStats = player.GetComponentInParent<UnitStats>() ?? player.GetComponent<UnitStats>();
 
         DiceRollPanel.Request(new DiceRollPanel.CombatRequest
         {
-            attacker        = myStats,
-            defender        = targetStats,
-            defenderHealth  = targetHealth,
+            attacker = myStats,
+            defender = targetStats,
             attackerIsPlayer = false,
-            isMelee         = false
+            isMelee = false
         });
     }
 
-    void FlipSprite()
+    void FlipToPlayer()
     {
-        float vx = rb.linearVelocity.x;
-        float faceDir = (Mathf.Abs(vx) > 0.05f)
-            ? (vx > 0 ? 0.9f : -0.9f)
-            : (player.position.x > transform.position.x ? 0.9f : -0.9f);
-
-        transform.localScale = new Vector3(faceDir, 0.9f, 1f);
+        float sx = player.position.x < transform.position.x ? -0.9f : 0.9f;
+        transform.localScale = new Vector3(sx, 0.9f, 1f);
     }
 
     void FixUI()
     {
-        if (uiContainer != null)
-        {
-            Vector3 ls = uiContainer.localScale;
-            ls.x = Mathf.Abs(ls.x) * Mathf.Sign(transform.localScale.x);
-            uiContainer.localScale = ls;
-        }
+        if (uiContainer == null) return;
+        Vector3 ls = uiContainer.localScale;
+        ls.x = Mathf.Abs(ls.x) * Mathf.Sign(transform.localScale.x);
+        uiContainer.localScale = ls;
     }
 }

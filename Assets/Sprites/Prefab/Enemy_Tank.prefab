@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyXP
   xpOrbPrefab: {fileID: 5886662811335532851, guid: 9558f5f844dda624b9a616bb188e6105, type: 3}
-  xpReward: 100
+  xpReward: 150
 --- !u!114 &3012712548598604791
 MonoBehaviour:
   m_ObjectHideFlags: 0

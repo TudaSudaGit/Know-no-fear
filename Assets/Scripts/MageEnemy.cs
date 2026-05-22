@@ -13,14 +13,14 @@ public class MageEnemy : MonoBehaviour
     public Transform uiContainer;
 
     private Transform player;
-    private Animator  animator;
-    private bool      isCasting = false;
+    private Animator animator;
+    private bool isCasting = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        player   = GameObject.FindGameObjectWithTag("Player").transform;
-        castTimer = castCooldown; // первый каст через 8 сек
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        castTimer = castCooldown;
     }
 
     void Update()
@@ -43,7 +43,7 @@ public class MageEnemy : MonoBehaviour
             }
             else
             {
-                castTimer = 1f; // проверяем каждую секунду пока не в диапазоне
+                castTimer = 1f;
             }
         }
     }
@@ -52,10 +52,8 @@ public class MageEnemy : MonoBehaviour
     {
         isCasting = true;
         if (animator != null) animator.SetTrigger("Attack");
-        // Урон не через DiceRoll — заклинание всегда попадает
     }
 
-    // Вызывается AnimationEvent на последнем кадре анимации удара
     public void OnCastHit()
     {
         float dist = Vector2.Distance(transform.position, player.position);

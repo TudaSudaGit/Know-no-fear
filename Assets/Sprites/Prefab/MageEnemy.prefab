@@ -26,8 +26,8 @@ RectTransform:
   m_GameObject: {fileID: 419523603550469310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8805618996886040419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -288,6 +288,7 @@ MonoBehaviour:
   toughness: 3
   save: 4
   wounds: 4
+  armorPoints: 0
 --- !u!114 &4919467392783606147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,4 +318,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyXP
   xpOrbPrefab: {fileID: 5886662811335532851, guid: 9558f5f844dda624b9a616bb188e6105, type: 3}
-  xpReward: 20
+  xpReward: 150

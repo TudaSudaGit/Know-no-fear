@@ -10,7 +10,6 @@ public class TankEnemy : MonoBehaviour
     private Transform player;
     private Rigidbody2D rb;
     private Animator animator;
-
     private float attackTimer = 0f;
     private bool isAttacking = false;
 
@@ -24,7 +23,6 @@ public class TankEnemy : MonoBehaviour
     void Update()
     {
         if (player == null) return;
-
         float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance <= attackRange)
@@ -45,9 +43,7 @@ public class TankEnemy : MonoBehaviour
             animator.SetFloat("Speed", Mathf.Abs(dir.x));
         }
 
-        float sx = player.position.x < transform.position.x ? -1.8f : 1.8f;
-        transform.localScale = new Vector3(sx, 1.8f, 1f);
-
+        FlipToPlayer();
         FixUI();
     }
 
@@ -55,22 +51,15 @@ public class TankEnemy : MonoBehaviour
     {
         if (!isAttacking) return;
 
-        Health targetHealth = other.GetComponentInParent<Health>()
-                           ?? other.GetComponent<Health>();
-
-        if (targetHealth == null || !targetHealth.gameObject.CompareTag("Player")) return;
-
-        UnitStats myStats    = GetComponent<UnitStats>();
-        UnitStats targetStats = other.GetComponentInParent<UnitStats>()
-                             ?? other.GetComponent<UnitStats>();
+        UnitStats targetStats = other.GetComponentInParent<UnitStats>() ?? other.GetComponent<UnitStats>();
+        if (targetStats == null || !other.CompareTag("Player")) return;
 
         DiceRollPanel.Request(new DiceRollPanel.CombatRequest
         {
-            attacker        = myStats,
-            defender        = targetStats,
-            defenderHealth  = targetHealth,
+            attacker = GetComponent<UnitStats>(),
+            defender = targetStats,
             attackerIsPlayer = false,
-            isMelee         = true
+            isMelee = true
         });
 
         isAttacking = false;
@@ -89,13 +78,17 @@ public class TankEnemy : MonoBehaviour
         animator.SetBool("IsAttacking", false);
     }
 
+    void FlipToPlayer()
+    {
+        float sx = player.position.x < transform.position.x ? -1.8f : 1.8f;
+        transform.localScale = new Vector3(sx, 1.8f, 1f);
+    }
+
     void FixUI()
     {
-        if (uiContainer != null)
-        {
-            Vector3 ls = uiContainer.localScale;
-            ls.x = Mathf.Abs(ls.x) * Mathf.Sign(transform.localScale.x);
-            uiContainer.localScale = ls;
-        }
+        if (uiContainer == null) return;
+        Vector3 ls = uiContainer.localScale;
+        ls.x = Mathf.Abs(ls.x) * Mathf.Sign(transform.localScale.x);
+        uiContainer.localScale = ls;
     }
 }

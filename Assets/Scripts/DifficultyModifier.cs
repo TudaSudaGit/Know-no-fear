@@ -48,6 +48,14 @@ public class DifficultyModifier : MonoBehaviour
     {
         if (isPlayer)
         {
+            if (GameSettings.IsGameSaved && PlayerPrefs.HasKey("SavedPlayerArmor"))
+            {
+                UnitStats playerStats = GetComponent<UnitStats>();
+                if (playerStats != null)
+                {
+                    playerStats.armorPoints = PlayerPrefs.GetInt("SavedPlayerArmor");
+                }
+            }
             if (GameSettings.Difficulty == 0)
             {
                 if (PlayerXP.Instance != null)
