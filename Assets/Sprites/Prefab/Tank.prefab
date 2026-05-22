@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7882652409443574578}
   - component: {fileID: 2836456320046708011}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HeartsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 870014897696966958}
   - component: {fileID: 1692653241661295724}
   - component: {fileID: 2766528833740967242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy_Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -621,9 +621,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 576126126321884574}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 6341353816325044191}
   - component: {fileID: 3667025605074934007}
   - component: {fileID: 4326915042825282527}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

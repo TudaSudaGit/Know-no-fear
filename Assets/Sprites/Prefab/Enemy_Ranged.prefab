@@ -424,7 +424,6 @@ MonoBehaviour:
   weaponSkill: 7
   strength: 4
   damage: 1
-  attacks: 1
   armorPenetration: 0
   toughness: 3
   save: 5
