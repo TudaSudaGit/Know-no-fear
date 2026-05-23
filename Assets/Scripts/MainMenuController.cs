@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject canvasPause;
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
+    public GameObject complexityPanel;
     public Button loadGameButton;
     public PauseMenuController pauseMenuController;
     public ArmorSpawnManager[] armorSpawners;
@@ -46,6 +47,7 @@ public class MainMenuController : MonoBehaviour
 
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(false);
+        if (complexityPanel != null) complexityPanel.SetActive(false);
         if (canvasPause != null) canvasPause.SetActive(true);
         if (pauseMenuController != null)
         {
@@ -77,6 +79,7 @@ public class MainMenuController : MonoBehaviour
 
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(false);
+        if (complexityPanel != null) complexityPanel.SetActive(false);
         if (canvasPause != null) canvasPause.SetActive(true);
         if (gameplayRoot != null) gameplayRoot.SetActive(true);
         if (pauseMenuController != null)
@@ -97,11 +100,20 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(true);
+        if (complexityPanel != null) complexityPanel.SetActive(false);
+    }
+
+    public void ShowComplexity()
+    {
+        mainMenuPanel.SetActive(false);
+        settingsPanel.SetActive(false);
+        if (complexityPanel != null) complexityPanel.SetActive(true);
     }
 
     public void ShowMainMenu()
     {
         mainMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
+        if (complexityPanel != null) complexityPanel.SetActive(false);
     }
 }
