@@ -9,7 +9,7 @@ public class PlayerCurseHandler : MonoBehaviour
     public GameObject tutorialPanel;
     public TextMeshProUGUI tutorialText;
     public float messageDuration = 5f;
-    public int qPressesTarget = 5;
+    public int qPressesTarget = 15;
 
     public bool IsQCurseActive { get; private set; }
     public bool IsInverted { get; private set; }
