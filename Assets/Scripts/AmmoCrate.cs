@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class AmmoCrate : MonoBehaviour
 {
+    public int spawnPointIndex = -1;
     private int ammoAmount;
     private bool isPlayerInside = false;
     private WeaponController playerWeapon;
     private GameObject interactionHint;
-
     private Rigidbody2D rb;
     private Collider2D col;
     private bool isLanded = false;
@@ -64,7 +64,6 @@ public class AmmoCrate : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
-            playerWeapon = null;
             if (interactionHint != null)
             {
                 interactionHint.SetActive(false);

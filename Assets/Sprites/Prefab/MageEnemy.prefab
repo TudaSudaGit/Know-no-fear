@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2204471186733165018}
   - component: {fileID: 4902063174991304142}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: UIContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,9 +76,9 @@ GameObject:
   - component: {fileID: 4264133530806361469}
   - component: {fileID: 4919467392783606147}
   - component: {fileID: 3238892323539835902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MageEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

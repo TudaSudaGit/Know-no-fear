@@ -79,6 +79,19 @@ public class PauseMenuController : MonoBehaviour
                 PlayerPrefs.SetInt("SavedPlayerArmor", playerStats.armorPoints);
             }
         }
+
+        AmmoSpawnManager ammoASM = Object.FindAnyObjectByType<AmmoSpawnManager>();
+        if (ammoASM != null)
+        {
+            ammoASM.SaveAmmoState();
+        }
+
+        ArmorSpawnManager armorASM = Object.FindAnyObjectByType<ArmorSpawnManager>();
+        if (armorASM != null)
+        {
+            armorASM.SaveArmorState();
+        }
+
         PlayerPrefs.Save();
         GameSettings.IsGameSaved = true;
     }

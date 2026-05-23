@@ -52,12 +52,14 @@ public class TankEnemy : MonoBehaviour
         if (!isAttacking) return;
 
         UnitStats targetStats = other.GetComponentInParent<UnitStats>() ?? other.GetComponent<UnitStats>();
+        Health targetHealth = other.GetComponentInParent<Health>() ?? other.GetComponent<Health>();
         if (targetStats == null || !other.CompareTag("Player")) return;
 
         DiceRollPanel.Request(new DiceRollPanel.CombatRequest
         {
             attacker = GetComponent<UnitStats>(),
             defender = targetStats,
+            defenderHealth = targetHealth,
             attackerIsPlayer = false,
             isMelee = true
         });

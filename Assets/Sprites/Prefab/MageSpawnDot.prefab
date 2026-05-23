@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6049615002510427991}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MageSpawnDot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,9 +40,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6049615002510427991}
     m_Modifications:
+    - target: {fileID: 419523603550469310, guid: db4f480e0ff930d4cbc2ee1f62b34de7, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2868084509587083388, guid: db4f480e0ff930d4cbc2ee1f62b34de7, type: 3}
       propertyPath: m_Name
       value: MageEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868084509587083388, guid: db4f480e0ff930d4cbc2ee1f62b34de7, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8805618996886040419, guid: db4f480e0ff930d4cbc2ee1f62b34de7, type: 3}
       propertyPath: m_LocalScale.x

@@ -45,4 +45,11 @@ public class PlayerCurseHandler : MonoBehaviour
                 break;
         }
     }
+    void OnEnable()
+    {
+        qPressesRemaining = 0;
+        invertTimer = 0f;
+        noShootTimer = 0f;
+        Debug.Log("[Curse] Все эффекты мага успешно сброшены при старте игры.");
+    }
 }

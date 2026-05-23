@@ -10,43 +10,108 @@ public class ArmorSpawnManager : MonoBehaviour
         [Range(0f, 100f)] public float spawnChance;
     }
 
+    public string spawnerID = "Location_1";
     public GameObject armorPickupPrefab;
     public SpawnPointData[] spawnPoints;
     public int minArmor = 1;
     public int maxArmor = 3;
     public int armorValue = 5;
 
+    private List<GameObject> spawnedArmor = new List<GameObject>();
+
+    void Start()
+    {
+        if (GameSettings.IsGameSaved)
+        {
+            SpawnArmorObjects();
+        }
+    }
+
     public void SpawnArmorObjects()
     {
-        List<Transform> successfulPoints = new List<Transform>();
-        List<Transform> failedPoints = new List<Transform>();
-
-        foreach (var data in spawnPoints)
+        foreach (GameObject armor in spawnedArmor)
         {
-            if (data.spawnPoint == null) continue;
-            if (Random.Range(0f, 100f) <= data.spawnChance)
-                successfulPoints.Add(data.spawnPoint);
-            else
-                failedPoints.Add(data.spawnPoint);
+            if (armor != null)
+            {
+                Destroy(armor);
+            }
+        }
+        spawnedArmor.Clear();
+
+        if (GameSettings.IsGameSaved)
+        {
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                if (spawnPoints[i].spawnPoint == null) continue;
+                if (PlayerPrefs.GetInt(spawnerID + "_ArmorSpawn_" + i, 0) == 1)
+                {
+                    SpawnArmor(i);
+                }
+            }
+        }
+        else
+        {
+            List<int> successfulIndices = new List<int>();
+            List<int> failedIndices = new List<int>();
+
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                if (spawnPoints[i].spawnPoint == null) continue;
+                if (Random.Range(0f, 100f) <= spawnPoints[i].spawnChance)
+                    successfulIndices.Add(i);
+                else
+                    failedIndices.Add(i);
+            }
+
+            while (successfulIndices.Count < minArmor && failedIndices.Count > 0)
+            {
+                int idx = Random.Range(0, failedIndices.Count);
+                successfulIndices.Add(failedIndices[idx]);
+                failedIndices.RemoveAt(idx);
+            }
+
+            while (successfulIndices.Count > maxArmor)
+            {
+                successfulIndices.RemoveAt(Random.Range(0, successfulIndices.Count));
+            }
+
+            for (int i = 0; i < successfulIndices.Count; i++)
+            {
+                SpawnArmor(successfulIndices[i]);
+            }
+        }
+    }
+
+    void SpawnArmor(int index)
+    {
+        GameObject obj = Instantiate(armorPickupPrefab, spawnPoints[index].spawnPoint.position, Quaternion.identity);
+        spawnedArmor.Add(obj);
+
+        ArmorPickup pickup = obj.GetComponent<ArmorPickup>();
+        if (pickup != null)
+        {
+            pickup.spawnPointIndex = index;
+            pickup.Setup(armorValue);
+        }
+    }
+
+    public void SaveArmorState()
+    {
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            PlayerPrefs.SetInt(spawnerID + "_ArmorSpawn_" + i, 0);
         }
 
-        while (successfulPoints.Count < minArmor && failedPoints.Count > 0)
+        foreach (GameObject obj in spawnedArmor)
         {
-            int idx = Random.Range(0, failedPoints.Count);
-            successfulPoints.Add(failedPoints[idx]);
-            failedPoints.RemoveAt(idx);
-        }
-
-        while (successfulPoints.Count > maxArmor)
-        {
-            successfulPoints.RemoveAt(Random.Range(0, successfulPoints.Count));
-        }
-
-        foreach (var point in successfulPoints)
-        {
-            GameObject obj = Instantiate(armorPickupPrefab, point.position, Quaternion.identity);
-            ArmorPickup pickup = obj.GetComponent<ArmorPickup>();
-            if (pickup != null) pickup.Setup(armorValue);
+            if (obj != null)
+            {
+                ArmorPickup armor = obj.GetComponent<ArmorPickup>();
+                if (armor != null && armor.spawnPointIndex != -1)
+                {
+                    PlayerPrefs.SetInt(spawnerID + "_ArmorSpawn_" + armor.spawnPointIndex, 1);
+                }
+            }
         }
     }
 }

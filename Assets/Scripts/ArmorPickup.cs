@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ArmorPickup : MonoBehaviour
 {
+    public int spawnPointIndex = -1;
     public int armorAmount = 5;
     private Rigidbody2D rb;
     private Collider2D col;
@@ -33,7 +34,6 @@ public class ArmorPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             UnitStats stats = other.GetComponentInParent<UnitStats>() ?? other.GetComponent<UnitStats>();
-
             if (stats != null)
             {
                 stats.armorPoints += armorAmount;
