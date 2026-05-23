@@ -5152,6 +5152,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 959582353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &667027043
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -43.09602
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.9310627
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8011567372756424299, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_Name
+      value: MageSpawnDot (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f245d05b7885fa74e86089918268ece7, type: 3}
 --- !u!1 &683264032
 GameObject:
   m_ObjectHideFlags: 0
@@ -6588,6 +6645,7 @@ MonoBehaviour:
   mainMenuPanel: {fileID: 1373056454}
   settingsPanel: {fileID: 37100149}
   complexityPanel: {fileID: 1247577778}
+  noSaveWarningPanel: {fileID: 1271893051}
   loadGameButton: {fileID: 0}
   pauseMenuController: {fileID: 1121513458}
   armorSpawners:
@@ -7236,9 +7294,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1121513458}
-        m_TargetAssemblyTypeName: PauseMenuController, Assembly-CSharp
-        m_MethodName: CancelExit
+      - m_Target: {fileID: 941315234}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: CloseWarningPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9908,7 +9966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1373056455
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11479,6 +11537,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1489655683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1583548103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -64.516014
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.0610065
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049615002510427991, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8011567372756424299, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+      propertyPath: m_Name
+      value: MageSpawnDot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 4774797574337335347, guid: f245d05b7885fa74e86089918268ece7, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f245d05b7885fa74e86089918268ece7, type: 3}
 --- !u!1 &1588343792
 GameObject:
   m_ObjectHideFlags: 0
@@ -14005,9 +14121,6 @@ MonoBehaviour:
   enemiesToSpawn:
   - name: Tank
     prefab: {fileID: 7848667539746625697, guid: 8c38da8d392a8874f85e432fcffbb932, type: 3}
-    count: 0
-  - name: Tank
-    prefab: {fileID: 8011567372756424299, guid: f245d05b7885fa74e86089918268ece7, type: 3}
     count: 1
   activationRange: 30
   spawnDelay: 2
@@ -15324,3 +15437,5 @@ SceneRoots:
   - {fileID: 264863518}
   - {fileID: 1957580701}
   - {fileID: 1121513462}
+  - {fileID: 1583548103}
+  - {fileID: 667027043}
