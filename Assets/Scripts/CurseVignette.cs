@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class CurseVignette : MonoBehaviour
 {
-    private Image[] borders = new Image[4]; // left, right, top, bottom
+    private Image[] borders = new Image[4];
     private float pulseTimer = 0f;
 
     private static readonly Color BORDER_COLOR = new Color(0.45f, 0.05f, 0.85f, 0f);
@@ -21,7 +21,6 @@ public class CurseVignette : MonoBehaviour
         cv.sortingOrder = 998;
         canvasGO.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
-        // left, right, top, bottom
         borders[0] = MakeBorder(canvasGO.transform, "L",
             new Vector2(0,0), new Vector2(0,1), new Vector2(0,0.5f),
             new Vector2(BORDER_SIZE, 0), Vector2.zero);

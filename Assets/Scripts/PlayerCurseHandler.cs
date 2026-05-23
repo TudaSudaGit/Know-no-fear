@@ -1,55 +1,118 @@
 using UnityEngine;
+using System.Collections;
+using TMPro;
 
 public class PlayerCurseHandler : MonoBehaviour
 {
-    public static PlayerCurseHandler Instance { get; private set; }
+    public static PlayerCurseHandler Instance;
 
-    public bool IsQCurseActive => qPressesRemaining > 0;
-    public bool IsInverted     => invertTimer > 0f;
-    public bool IsShootBlocked => noShootTimer > 0f;
+    public GameObject tutorialPanel;
+    public TextMeshProUGUI tutorialText;
+    public float messageDuration = 5f;
+    public int qPressesTarget = 5;
+
+    public bool IsQCurseActive { get; private set; }
+    public bool IsInverted { get; private set; }
+    public bool IsShootBlocked { get; private set; }
+
     public bool AnyCurseActive => IsQCurseActive || IsInverted || IsShootBlocked;
 
-    private int   qPressesRemaining = 0;
-    private float invertTimer       = 0f;
-    private float noShootTimer      = 0f;
+    private int currentQPresses;
+    private Coroutine hidePanelCoroutine;
 
-    void Awake() => Instance = this;
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     void Update()
     {
-        if (invertTimer  > 0f) invertTimer  -= Time.deltaTime;
-        if (noShootTimer > 0f) noShootTimer -= Time.deltaTime;
-
-        if (IsQCurseActive && Input.GetKeyDown(KeyCode.Q))
+        if (IsQCurseActive)
         {
-            qPressesRemaining--;
-            Debug.Log($"[Curse] Q нажата, осталось: {qPressesRemaining}");
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                currentQPresses--;
+                if (currentQPresses <= 0)
+                {
+                    ClearCurses();
+                }
+                else
+                {
+                    tutorialText.text = $"Проклятие: все действия заблокированы\nНажмите Q {currentQPresses} раз";
+                }
+            }
         }
     }
 
     public void ApplyCurse(int spell)
     {
+        ClearCurses();
+
+        if (tutorialPanel == null || tutorialText == null) return;
+
+        tutorialPanel.SetActive(true);
+
         switch (spell)
         {
             case 0:
-                qPressesRemaining = Random.Range(10, 21);
-                Debug.Log($"[Curse] Проклятье Q: нажми Q {qPressesRemaining} раз!");
+                IsInverted = true;
+                hidePanelCoroutine = StartCoroutine(CountdownCurseRoutine(0, messageDuration));
                 break;
             case 1:
-                invertTimer = 10f;
-                Debug.Log("[Curse] Проклятье: инверсия управления на 10 сек");
+                IsShootBlocked = true;
+                hidePanelCoroutine = StartCoroutine(CountdownCurseRoutine(1, messageDuration));
                 break;
             case 2:
-                noShootTimer = 6f;
-                Debug.Log("[Curse] Проклятье: запрет стрельбы на 6 сек");
+                IsQCurseActive = true;
+                currentQPresses = qPressesTarget;
+                tutorialText.text = $"Проклятие: все действия заблокированы\n Для разблокировки нажмите Q {currentQPresses} раз";
+                break;
+            default:
+                tutorialText.text = "Темная магия";
+                hidePanelCoroutine = StartCoroutine(DefaultHideRoutine());
                 break;
         }
     }
-    void OnEnable()
+
+    private void ClearCurses()
     {
-        qPressesRemaining = 0;
-        invertTimer = 0f;
-        noShootTimer = 0f;
-        Debug.Log("[Curse] Все эффекты мага успешно сброшены при старте игры.");
+        IsQCurseActive = false;
+        IsInverted = false;
+        IsShootBlocked = false;
+
+        if (tutorialPanel != null) tutorialPanel.SetActive(false);
+        if (hidePanelCoroutine != null)
+        {
+            StopCoroutine(hidePanelCoroutine);
+            hidePanelCoroutine = null;
+        }
+    }
+
+    private IEnumerator CountdownCurseRoutine(int spellType, float duration)
+    {
+        float timeLeft = duration;
+        while (timeLeft > 0)
+        {
+            int seconds = Mathf.CeilToInt(timeLeft);
+            if (spellType == 0)
+            {
+                tutorialText.text = $"Проклятие: инверсия управления\nВаше управление инвертировано на {seconds} сек.";
+            }
+            else if (spellType == 1)
+            {
+                tutorialText.text = $"Проклятие: запрет стрельбы\nВы не можете стрелять {seconds} сек.";
+            }
+
+            yield return null;
+            timeLeft -= Time.deltaTime;
+        }
+        ClearCurses();
+    }
+
+    private IEnumerator DefaultHideRoutine()
+    {
+        yield return new WaitForSeconds(messageDuration);
+        ClearCurses();
     }
 }

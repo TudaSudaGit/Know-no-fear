@@ -289,8 +289,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.2865, y: -5.84}
-  m_SizeDelta: {x: 1526.6064, y: 481}
+  m_AnchoredPosition: {x: -0.6176, y: -5.7537}
+  m_SizeDelta: {x: 1259.0627, y: 515.522}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &45899929
 MonoBehaviour:
@@ -3201,7 +3201,7 @@ MonoBehaviour:
   currentLevel: 1
   currentXP: 0
   baseXPToLevel: 60
-  xpExponent: 1.5
+  xpExponent: 1.2
   levelUpUI: {fileID: 1810747942}
   accuracy: 0
   strength: 0
@@ -3255,6 +3255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c70ad895aa4244f9c78f8a5db33613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCurseHandler
+  tutorialPanel: {fileID: 344961084}
+  tutorialText: {fileID: 1382926454}
+  messageDuration: 5
+  qPressesTarget: 5
 --- !u!114 &428144076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3867,8 +3871,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 529806870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.34, y: 0}
+  m_AnchorMax: {x: 0.34, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5719,7 +5723,7 @@ RectTransform:
   m_Father: {fileID: 584015907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.34, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6295,7 +6299,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -646, y: 0}
+  m_AnchoredPosition: {x: -413, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &920812442
@@ -10003,7 +10007,7 @@ Transform:
   m_GameObject: {fileID: 1439634532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.7, y: -4.81253, z: 0}
+  m_LocalPosition: {x: 2.2, y: -4.81253, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10760,7 +10764,7 @@ MonoBehaviour:
   enemiesToSpawn:
   - name: Tank
     prefab: {fileID: 7848667539746625697, guid: 8c38da8d392a8874f85e432fcffbb932, type: 3}
-    count: 2
+    count: 1
   - name: Ranged
     prefab: {fileID: 6097723559274091868, guid: 0eb5305ca5956124db77515005ba4fb5, type: 3}
     count: 1
@@ -12819,7 +12823,7 @@ Transform:
   m_GameObject: {fileID: 2012378287}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.2, y: -4.81253, z: 0}
+  m_LocalPosition: {x: -20.5, y: -4.81253, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12841,9 +12845,6 @@ MonoBehaviour:
   - name: Tank
     prefab: {fileID: 7848667539746625697, guid: 8c38da8d392a8874f85e432fcffbb932, type: 3}
     count: 1
-  - name: Ranged
-    prefab: {fileID: 6097723559274091868, guid: 0eb5305ca5956124db77515005ba4fb5, type: 3}
-    count: 0
   activationRange: 30
   spawnDelay: 2
   spawnRadius: 0

@@ -31,54 +31,37 @@ public class ArmorSpawnManager : MonoBehaviour
     {
         foreach (GameObject armor in spawnedArmor)
         {
-            if (armor != null)
-            {
-                Destroy(armor);
-            }
+            if (armor != null) Destroy(armor);
         }
         spawnedArmor.Clear();
 
-        if (GameSettings.IsGameSaved)
+        List<int> successfulIndices = new List<int>();
+        List<int> failedIndices = new List<int>();
+
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
-            for (int i = 0; i < spawnPoints.Length; i++)
-            {
-                if (spawnPoints[i].spawnPoint == null) continue;
-                if (PlayerPrefs.GetInt(spawnerID + "_ArmorSpawn_" + i, 0) == 1)
-                {
-                    SpawnArmor(i);
-                }
-            }
+            if (spawnPoints[i].spawnPoint == null) continue;
+            if (Random.Range(0f, 100f) <= spawnPoints[i].spawnChance)
+                successfulIndices.Add(i);
+            else
+                failedIndices.Add(i);
         }
-        else
+
+        while (successfulIndices.Count < minArmor && failedIndices.Count > 0)
         {
-            List<int> successfulIndices = new List<int>();
-            List<int> failedIndices = new List<int>();
+            int idx = Random.Range(0, failedIndices.Count);
+            successfulIndices.Add(failedIndices[idx]);
+            failedIndices.RemoveAt(idx);
+        }
 
-            for (int i = 0; i < spawnPoints.Length; i++)
-            {
-                if (spawnPoints[i].spawnPoint == null) continue;
-                if (Random.Range(0f, 100f) <= spawnPoints[i].spawnChance)
-                    successfulIndices.Add(i);
-                else
-                    failedIndices.Add(i);
-            }
+        while (successfulIndices.Count > maxArmor)
+        {
+            successfulIndices.RemoveAt(Random.Range(0, successfulIndices.Count));
+        }
 
-            while (successfulIndices.Count < minArmor && failedIndices.Count > 0)
-            {
-                int idx = Random.Range(0, failedIndices.Count);
-                successfulIndices.Add(failedIndices[idx]);
-                failedIndices.RemoveAt(idx);
-            }
-
-            while (successfulIndices.Count > maxArmor)
-            {
-                successfulIndices.RemoveAt(Random.Range(0, successfulIndices.Count));
-            }
-
-            for (int i = 0; i < successfulIndices.Count; i++)
-            {
-                SpawnArmor(successfulIndices[i]);
-            }
+        for (int i = 0; i < successfulIndices.Count; i++)
+        {
+            SpawnArmor(successfulIndices[i]);
         }
     }
 
@@ -90,28 +73,11 @@ public class ArmorSpawnManager : MonoBehaviour
         ArmorPickup pickup = obj.GetComponent<ArmorPickup>();
         if (pickup != null)
         {
-            pickup.spawnPointIndex = index;
             pickup.Setup(armorValue);
         }
     }
 
     public void SaveArmorState()
     {
-        for (int i = 0; i < spawnPoints.Length; i++)
-        {
-            PlayerPrefs.SetInt(spawnerID + "_ArmorSpawn_" + i, 0);
-        }
-
-        foreach (GameObject obj in spawnedArmor)
-        {
-            if (obj != null)
-            {
-                ArmorPickup armor = obj.GetComponent<ArmorPickup>();
-                if (armor != null && armor.spawnPointIndex != -1)
-                {
-                    PlayerPrefs.SetInt(spawnerID + "_ArmorSpawn_" + armor.spawnPointIndex, 1);
-                }
-            }
-        }
     }
 }

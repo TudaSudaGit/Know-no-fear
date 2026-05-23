@@ -92,7 +92,7 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TutorialStep.SelectCrosshair:
-                instructionText.text = "НАСТРОЙКА ПРИЦЕЛА:\nНажав [ESC], вы можете открыть меню и выбрать подходящий вам прицел.";
+                instructionText.text = "ПАУЗА И НАСТРОЙКИ:\nНажав ESC вы можете поставить игру на паузу, чтобы сохраниться поменять настройки прицела или выйти в главное меню";
                 break;
 
             case TutorialStep.Shoot:
@@ -100,11 +100,11 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TutorialStep.Reload:
-                instructionText.text = "ПЕРЕЗАРЯДКА:\nНажми [R] для перезарядки.\nКоличество патронов отображается под игроком рядом с ХП.";
+                instructionText.text = "ПЕРЕЗАРЯДКА:\nНажми [R] для перезарядки.\nКоличество патронов отображается под игроком.\nПатроны можно найти на карте в ящиках.";
                 break;
 
             case TutorialStep.ExplainDice:
-                instructionText.text = "МЕХАНИКА ПРОБИТИЯ (ХП):\nОбрати внимание на кубик под тобой — там твои ХП!\nПопадание и урон зависят от броска костей.\nЕсли твоя Сила выше Стойкости врага,\nурон наносится легче!\n<color=#87CEEB>Иди направо!</color>";
+                instructionText.text = "МЕХАНИКА ПРОБИТИЯ:\nПод персонажем на кубиках отображаются ХП (жёлтый) и броня (синий) которая защищает тебя от потери ХП, броню можно найти на карте\nПопадание и урон зависят от броска костей.\nЕсли твоя Сила выше стойкости врага, урон наносится легче.\n<color=#87CEEB>Иди направо и спаси этот мир.</color>";
                 break;
 
             case TutorialStep.Finished:

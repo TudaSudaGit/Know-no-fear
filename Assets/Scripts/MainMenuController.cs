@@ -28,21 +28,11 @@ public class MainMenuController : MonoBehaviour
     {
         GameSettings.IsGameSaved = false;
 
-        Debug.Log($"[MainMenu] Нажата Новая Игра. В списке брони: {armorSpawners?.Length ?? 0} эл., в списке патрон: {ammoSpawners?.Length ?? 0} эл.");
-
         if (armorSpawners != null)
         {
             foreach (ArmorSpawnManager spawner in armorSpawners)
             {
-                if (spawner != null)
-                {
-                    Debug.Log($"[MainMenu] Запускаю спавн БРОНИ на объекте: {spawner.gameObject.name}");
-                    spawner.SpawnArmorObjects();
-                }
-                else
-                {
-                    Debug.LogWarning("[MainMenu] Предупреждение: В списке armorSpawners есть пустой слот (None)!");
-                }
+                if (spawner != null) spawner.SpawnArmorObjects();
             }
         }
 
@@ -50,15 +40,7 @@ public class MainMenuController : MonoBehaviour
         {
             foreach (AmmoSpawnManager spawner in ammoSpawners)
             {
-                if (spawner != null)
-                {
-                    Debug.Log($"[MainMenu] Запускаю спавн ПАТРОН на объекте: {spawner.gameObject.name}");
-                    spawner.SpawnAmmoObjects();
-                }
-                else
-                {
-                    Debug.LogWarning("[MainMenu] Предупреждение: В списке ammoSpawners есть пустой слот (None)!");
-                }
+                if (spawner != null) spawner.SpawnAmmoObjects();
             }
         }
 
@@ -77,16 +59,11 @@ public class MainMenuController : MonoBehaviour
     {
         GameSettings.IsGameSaved = true;
 
-        Debug.Log($"[MainMenu] Загрузка игры. В списке брони: {armorSpawners?.Length ?? 0} эл., в списке патрон: {ammoSpawners?.Length ?? 0} эл.");
-
         if (armorSpawners != null)
         {
             foreach (ArmorSpawnManager spawner in armorSpawners)
             {
-                if (spawner != null)
-                {
-                    spawner.SpawnArmorObjects();
-                }
+                if (spawner != null) spawner.SpawnArmorObjects();
             }
         }
 
@@ -94,10 +71,7 @@ public class MainMenuController : MonoBehaviour
         {
             foreach (AmmoSpawnManager spawner in ammoSpawners)
             {
-                if (spawner != null)
-                {
-                    spawner.SpawnAmmoObjects();
-                }
+                if (spawner != null) spawner.SpawnAmmoObjects();
             }
         }
 
