@@ -50,20 +50,32 @@ public class RangedEnemy : MonoBehaviour
     {
         Vector2 dir = (transform.position - player.position).normalized;
         rb.linearVelocity = new Vector2(dir.x * moveSpeed, rb.linearVelocity.y);
-        if (animator != null) animator.SetFloat("Speed", Mathf.Abs(dir.x));
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(dir.x));
+            animator.ResetTrigger("Attack"); // Очищаем застрявший триггер
+        }
     }
 
     void StateApproach()
     {
         Vector2 dir = (player.position - transform.position).normalized;
         rb.linearVelocity = new Vector2(dir.x * moveSpeed, rb.linearVelocity.y);
-        if (animator != null) animator.SetFloat("Speed", Mathf.Abs(dir.x));
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(dir.x));
+            animator.ResetTrigger("Attack"); // Очищаем застрявший триггер
+        }
     }
 
     void StateIdle()
     {
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        if (animator != null) animator.SetFloat("Speed", 0f);
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", 0f);
+            animator.ResetTrigger("Attack"); // Очищаем застрявший триггер
+        }
     }
 
     void StateAttack()

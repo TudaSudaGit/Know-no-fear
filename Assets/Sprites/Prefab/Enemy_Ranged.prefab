@@ -220,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
   moveSpeed: 2
   detectionRange: 50
-  shootRange: 35
+  shootRange: 25
   retreatRange: 12
   uiContainer: {fileID: 1702839894305996514}
   firePoint: {fileID: 6456197933952923187}
