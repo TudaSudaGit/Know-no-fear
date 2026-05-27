@@ -3,12 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
-    public GameObject gameplayRoot;
-    public GameObject canvasMenu;
+    public GameObject gameplayRoot, canvasMenu, pausePanel, confirmationPanel, crosshairSettingsPanel;
     public MainMenuController mainMenuController;
-    public GameObject pausePanel;
-    public GameObject confirmationPanel;
-    public GameObject crosshairSettingsPanel;
     private bool isPaused = false;
 
     void Update()
@@ -17,7 +13,20 @@ public class PauseMenuController : MonoBehaviour
         {
             if (isPaused)
             {
-                Resume();
+                if (crosshairSettingsPanel != null && crosshairSettingsPanel.activeSelf)
+                {
+                    crosshairSettingsPanel.SetActive(false);
+                    pausePanel.SetActive(true);
+                }
+                else if (confirmationPanel != null && confirmationPanel.activeSelf)
+                {
+                    confirmationPanel.SetActive(false);
+                    pausePanel.SetActive(true);
+                }
+                else
+                {
+                    Resume();
+                }
             }
             else
             {
@@ -67,41 +76,23 @@ public class PauseMenuController : MonoBehaviour
             PlayerPrefs.SetFloat("PlayerX", player.transform.position.x);
             PlayerPrefs.SetFloat("PlayerY", player.transform.position.y);
         }
-        if (WeaponController.Instance != null)
-        {
-            WeaponController.Instance.SaveAmmoData();
-        }
+        if (WeaponController.Instance != null) WeaponController.Instance.SaveAmmoData();
         if (player != null)
         {
             UnitStats playerStats = player.GetComponent<UnitStats>();
-            if (playerStats != null)
-            {
-                PlayerPrefs.SetInt("SavedPlayerArmor", playerStats.armorPoints);
-            }
+            if (playerStats != null) PlayerPrefs.SetInt("SavedPlayerArmor", playerStats.armorPoints);
         }
-
         AmmoSpawnManager ammoASM = Object.FindAnyObjectByType<AmmoSpawnManager>();
-        if (ammoASM != null)
-        {
-            ammoASM.SaveAmmoState();
-        }
-
+        if (ammoASM != null) ammoASM.SaveAmmoState();
         ArmorSpawnManager armorASM = Object.FindAnyObjectByType<ArmorSpawnManager>();
-        if (armorASM != null)
-        {
-            armorASM.SaveArmorState();
-        }
-
+        if (armorASM != null) armorASM.SaveArmorState();
         PlayerPrefs.Save();
         GameSettings.IsGameSaved = true;
     }
 
     public void AttemptExit()
     {
-        if (GameSettings.IsGameSaved)
-        {
-            ConfirmExit();
-        }
+        if (GameSettings.IsGameSaved) ConfirmExit();
         else
         {
             pausePanel.SetActive(false);

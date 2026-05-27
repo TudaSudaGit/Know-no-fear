@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3730865189969149694}
   - component: {fileID: 3761316660054452081}
   - component: {fileID: 8403124737094986190}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LaserPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,6 +87,7 @@ MonoBehaviour:
   speed: 15
   damage: 1
   lifetime: 5
+  attackerStats: {fileID: 0}
 --- !u!120 &3761316660054452081
 LineRenderer:
   serializedVersion: 3

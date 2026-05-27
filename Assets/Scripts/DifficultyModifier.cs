@@ -3,14 +3,7 @@ using UnityEngine;
 public class DifficultyModifier : MonoBehaviour
 {
     public bool isPlayer = false;
-
-    private int baseBallisticSkill;
-    private int baseWeaponSkill;
-    private int baseStrength;
-    private int baseDamage;
-    private int baseToughness;
-    private int baseWounds;
-
+    private int baseBallisticSkill, baseWeaponSkill, baseStrength, baseDamage, baseToughness, baseWounds;
     private UnitStats stats;
     private bool isBaseSaved = false;
 
@@ -20,22 +13,17 @@ public class DifficultyModifier : MonoBehaviour
         SaveOriginalStats();
     }
 
-    void OnEnable()
-    {
-        ApplyDifficultySettings();
-    }
+    void OnEnable() { ApplyDifficultySettings(); }
 
     void SaveOriginalStats()
     {
         if (stats == null || isBaseSaved) return;
-
         baseBallisticSkill = stats.ballisticSkill;
         baseWeaponSkill = stats.weaponSkill;
         baseStrength = stats.strength;
         baseDamage = stats.damage;
         baseToughness = stats.toughness;
         baseWounds = stats.wounds;
-
         isBaseSaved = true;
     }
 
@@ -43,14 +31,12 @@ public class DifficultyModifier : MonoBehaviour
     {
         GameSettings.LoadOptions();
         if (stats == null) return;
-
         stats.ballisticSkill = baseBallisticSkill;
         stats.weaponSkill = baseWeaponSkill;
         stats.strength = baseStrength;
         stats.damage = baseDamage;
         stats.toughness = baseToughness;
         stats.wounds = baseWounds;
-
         if (!isPlayer)
         {
             if (GameSettings.Difficulty == 0)
@@ -62,37 +48,22 @@ public class DifficultyModifier : MonoBehaviour
                 stats.toughness = Mathf.Max(1, baseToughness - 1);
                 stats.wounds = Mathf.Max(1, baseWounds - 1);
             }
-            if (GameSettings.Difficulty == 2) // Сложно
+            if (GameSettings.Difficulty == 2)
             {
                 stats.ballisticSkill = Mathf.Min(7, baseBallisticSkill + 1);
                 stats.weaponSkill = Mathf.Min(7, baseWeaponSkill + 1);
-                stats.strength += 1;
-                stats.damage += 1;
-                stats.toughness += 1;
-                stats.wounds += 1;
+                stats.strength += 1; stats.damage += 1; stats.toughness += 1; stats.wounds += 1;
             }
         }
         else
         {
-            if (GameSettings.Difficulty == 0)
-            {
-                stats.wounds += 1;
-                if (PlayerXP.Instance != null)
-                {
-                    PlayerXP.Instance.maxHealthBonus = 1;
-                }
-            }
-            if (GameSettings.Difficulty == 2)
-            {
-                stats.wounds = Mathf.Max(1, stats.wounds - 1);
-            }
+            if (GameSettings.Difficulty == 0) stats.armorPoints = 5;
+            else if (GameSettings.Difficulty == 1) stats.armorPoints = 3;
+            else if (GameSettings.Difficulty == 2) stats.armorPoints = 1;
 
-            Health health = GetComponent<Health>();
-            if (health != null)
+            if (WeaponController.Instance != null)
             {
-                health.maxHealth = stats.wounds;
-                health.currentHealth = health.maxHealth;
-                health.ApplyDamage(0);
+                WeaponController.Instance.UpdateAmmoDifficulty();
             }
         }
     }
@@ -101,25 +72,11 @@ public class DifficultyModifier : MonoBehaviour
     {
         if (isPlayer)
         {
-            if (GameSettings.IsGameSaved && PlayerPrefs.HasKey("SavedPlayerArmor"))
-            {
-                if (stats != null)
-                {
-                    stats.armorPoints = PlayerPrefs.GetInt("SavedPlayerArmor");
-                }
-            }
-            if (GameSettings.Difficulty == 0 && PlayerXP.Instance != null)
-            {
-                PlayerXP.Instance.maxHealthBonus = 1;
-            }
-
+            if (GameSettings.IsGameSaved && PlayerPrefs.HasKey("SavedPlayerArmor") && stats != null)
+                stats.armorPoints = PlayerPrefs.GetInt("SavedPlayerArmor");
             if (GameSettings.IsGameSaved && PlayerPrefs.HasKey("PlayerX"))
             {
-                transform.position = new Vector3(
-                    PlayerPrefs.GetFloat("PlayerX"),
-                    PlayerPrefs.GetFloat("PlayerY"),
-                    transform.position.z
-                );
+                transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerX"), PlayerPrefs.GetFloat("PlayerY"), transform.position.z);
                 if (PlayerXP.Instance != null)
                 {
                     PlayerXP.Instance.currentLevel = PlayerPrefs.GetInt("SavedLevel", 1);
