@@ -75,7 +75,7 @@ public class PlayerCurseHandler : MonoBehaviour
         }
     }
 
-    private void ClearCurses()
+    public void ClearCurses()
     {
         IsQCurseActive = false;
         IsInverted = false;
@@ -96,13 +96,9 @@ public class PlayerCurseHandler : MonoBehaviour
         {
             int seconds = Mathf.CeilToInt(timeLeft);
             if (spellType == 0)
-            {
                 tutorialText.text = $"Проклятие: инверсия управления\nВаше управление инвертировано на {seconds} сек.";
-            }
             else if (spellType == 1)
-            {
                 tutorialText.text = $"Проклятие: запрет стрельбы\nВы не можете стрелять {seconds} сек.";
-            }
 
             yield return null;
             timeLeft -= Time.deltaTime;

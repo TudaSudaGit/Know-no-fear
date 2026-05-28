@@ -102,6 +102,11 @@ public class PauseMenuController : MonoBehaviour
 
     public void ConfirmExit()
     {
+        if (PlayerCurseHandler.Instance != null)
+        {
+            PlayerCurseHandler.Instance.ClearCurses();
+        }
+
         Time.timeScale = 1f;
         isPaused = false;
         SceneManager.LoadScene(0);
