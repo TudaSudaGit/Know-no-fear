@@ -50,31 +50,34 @@ public class DiceRollPanel : MonoBehaviour
 
     private int RollDie(bool isPlayerRoll)
     {
-        if (isPlayerRoll)
+        // Бросок врага всегда честный
+        if (!isPlayerRoll) return Random.Range(1, 7);
+
+        GameSettings.LoadOptions();
+        int difficulty = GameSettings.Difficulty;
+
+        // Честный бросок 1D6 для игрока (по 16.6% на каждую грань)
+        int roll = Random.Range(1, 7);
+
+        // Легкая сложность: 50% шанс автоматически перебросить выпавшую единицу
+        if (difficulty == 0 && roll == 1 && Random.value > 0.5f)
         {
-            GameSettings.LoadOptions();
-            int difficulty = GameSettings.Difficulty;
-            int failureBonus = consecutiveFailures;
-
-            if (difficulty == 0) failureBonus *= 2;
-            else if (difficulty == 2) failureBonus = Mathf.FloorToInt(failureBonus * 0.5f);
-
-            // Смещение базовых вероятностей: урезаем 1 и 2, увеличиваем 5 и 6
-            int rawRoll = Random.Range(1, 101);
-            int modifiedRoll = 1;
-
-            if (rawRoll <= 5) modifiedRoll = 1;         // 5% шанс на 1
-            else if (rawRoll <= 15) modifiedRoll = 2;   // 10% шанс на 2
-            else if (rawRoll <= 35) modifiedRoll = 3;   // 20% шанс на 3
-            else if (rawRoll <= 55) modifiedRoll = 4;   // 20% шанс на 4
-            else if (rawRoll <= 78) modifiedRoll = 5;   // 23% шанс на 5
-            else modifiedRoll = 6;                      // 22% шанс на 6
-
-            int minRoll = Mathf.Clamp(modifiedRoll + failureBonus, 1, 6);
-            return minRoll;
+            roll = Random.Range(2, 7);
+        }
+        // Высокая сложность: 50% шанс, что игра заставит перебросить шестерку
+        else if (difficulty == 2 && roll == 6 && Random.value > 0.5f)
+        {
+            roll = Random.Range(1, 6);
         }
 
-        return Random.Range(1, 7);
+        // Мягкая помощь при серии неудач:
+        // Если игрок промахнулся 2+ раза подряд и выкинул мало, слегка подталкиваем результат (+1)
+        if (consecutiveFailures >= 2 && roll <= 3)
+        {
+            roll += 1;
+        }
+
+        return Mathf.Clamp(roll, 1, 6);
     }
 
     IEnumerator ResolveOne(CombatRequest req)
@@ -257,7 +260,21 @@ public class DiceRollPanel : MonoBehaviour
 
     void ShowFinal(CardData cd, string text, Color color) { if (cd.final) { cd.final.text = text; cd.final.color = color; } }
 
-    int HitSkill(CombatRequest r) => r.attacker == null ? 4 : (r.isMelee ? r.attacker.weaponSkill : r.attacker.ballisticSkill);
+    int HitSkill(CombatRequest r)
+    {
+        // 1. Берем базовый навык (ближний или дальний бой)
+        int baseSkill = r.attacker == null ? 4 : (r.isMelee ? r.attacker.weaponSkill : r.attacker.ballisticSkill);
+
+        // 2. Если атакует ВРАГ, усложняем ему бросок за счет Неуловимости игрока
+        if (!r.attackerIsPlayer && PlayerXP.Instance != null)
+        {
+            baseSkill += PlayerXP.Instance.elusiveness;
+        }
+
+        // 3. Возвращаем результат, ограничивая его от 2 до 7 
+        // (если навык станет 7, враг физически не выкинет столько на D6 и всегда будет мазать)
+        return Mathf.Clamp(baseSkill, 2, 7);
+    }
     int Str(CombatRequest r) => r.attacker != null ? r.attacker.strength : 4;
     int Tough(CombatRequest r) => r.defender != null ? r.defender.toughness : 4;
     int Dmg(CombatRequest r) => r.attacker != null ? r.attacker.damage : 1;

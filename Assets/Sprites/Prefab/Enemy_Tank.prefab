@@ -572,6 +572,7 @@ MonoBehaviour:
   toughness: 6
   save: 5
   wounds: 3
+  armorPoints: 0
 --- !u!114 &1437084952019565763
 MonoBehaviour:
   m_ObjectHideFlags: 0
