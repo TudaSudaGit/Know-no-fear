@@ -53,7 +53,7 @@ public class RangedEnemy : MonoBehaviour
         if (animator != null)
         {
             animator.SetFloat("Speed", Mathf.Abs(dir.x));
-            animator.ResetTrigger("Attack"); // Очищаем застрявший триггер
+            animator.ResetTrigger("Attack");
         }
     }
 
@@ -64,7 +64,7 @@ public class RangedEnemy : MonoBehaviour
         if (animator != null)
         {
             animator.SetFloat("Speed", Mathf.Abs(dir.x));
-            animator.ResetTrigger("Attack"); // Очищаем застрявший триггер
+            animator.ResetTrigger("Attack");
         }
     }
 
@@ -74,7 +74,7 @@ public class RangedEnemy : MonoBehaviour
         if (animator != null)
         {
             animator.SetFloat("Speed", 0f);
-            animator.ResetTrigger("Attack"); // Очищаем застрявший триггер
+            animator.ResetTrigger("Attack");
         }
     }
 
@@ -104,6 +104,8 @@ public class RangedEnemy : MonoBehaviour
 
     void ApplyCombatDamage()
     {
+        if (TutorialTarget.IsTutorialCombatActive) return;
+
         UnitStats myStats = GetComponent<UnitStats>();
         UnitStats targetStats = player.GetComponentInParent<UnitStats>() ?? player.GetComponent<UnitStats>();
         Health targetHealth = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();

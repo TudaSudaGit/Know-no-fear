@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class XPOrb : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float acceleration = 5f;
+    public float moveSpeed = 2f;
     private int xpValue;
     private Transform player;
 
@@ -21,12 +20,13 @@ public class XPOrb : MonoBehaviour
     {
         if (player == null) return;
 
-        moveSpeed += acceleration * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+        float step = moveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, player.position, step);
 
         if (Vector3.Distance(transform.position, player.position) < 0.2f)
         {
             PlayerXP.Instance.AddXP(xpValue);
+            if (TutorialManager.Instance != null) TutorialManager.Instance.OnXPPickedUp();
             Destroy(gameObject);
         }
     }

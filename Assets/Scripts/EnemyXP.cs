@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyXP : MonoBehaviour
 {
     public GameObject xpOrbPrefab;
-    public int xpReward = 20;
+    public int xpReward = 100;
 
     public void DropXP()
     {

@@ -5,16 +5,13 @@ public class PlayerXP : MonoBehaviour
 {
     public static PlayerXP Instance { get; private set; }
 
-    [Header("Настройки уровней")]
     public int currentLevel = 1;
     public int currentXP = 0;
     public int baseXPToLevel = 100;
     public float xpExponent = 1.5f;
 
-    [Header("Ссылки")]
     public LevelUpUI levelUpUI;
 
-    [Header("Характеристики игрока")]
     public int accuracy = 0;
     public int strength = 0;
     public int armor = 0;
@@ -121,6 +118,8 @@ public class PlayerXP : MonoBehaviour
                 }
                 break;
         }
+
+        if (TutorialManager.Instance != null) TutorialManager.Instance.OnUpgradeSelected();
 
         if (levelUpUI != null && levelUpUI.panel != null)
         {

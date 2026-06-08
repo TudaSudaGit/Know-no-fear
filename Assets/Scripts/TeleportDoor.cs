@@ -1,13 +1,14 @@
 using UnityEngine;
 
-public class TeleportDoor : MonoBehaviour
+public class UniversalDoor : MonoBehaviour
 {
     public Transform targetPoint;
     public Transform[] objectsToTeleport;
     public GameObject interactionHint;
+    public GameObject oldCameraZone;
+    public GameObject newCameraZone;
 
     private bool isPlayerInside = false;
-    private Transform playerTransform;
 
     void Update()
     {
@@ -22,11 +23,7 @@ public class TeleportDoor : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = true;
-            playerTransform = other.transform;
-            if (interactionHint != null)
-            {
-                interactionHint.SetActive(true);
-            }
+            if (interactionHint != null) interactionHint.SetActive(true);
         }
     }
 
@@ -35,38 +32,38 @@ public class TeleportDoor : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
-            if (interactionHint != null)
-            {
-                interactionHint.SetActive(false);
-            }
+            if (interactionHint != null) interactionHint.SetActive(false);
         }
     }
 
     void Teleport()
     {
-        if (playerTransform == null || targetPoint == null) return;
-
-        Vector3 delta = targetPoint.position - playerTransform.position;
-
-        for (int i = 0; i < objectsToTeleport.Length; i++)
+        if (TutorialManager.Instance != null && TutorialManager.Instance.tutorialPanel != null)
         {
-            if (objectsToTeleport[i] != null)
+            TutorialManager.Instance.tutorialPanel.gameObject.SetActive(false);
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null || targetPoint == null) return;
+
+        Vector3 delta = targetPoint.position - player.transform.position;
+
+        foreach (Transform obj in objectsToTeleport)
+        {
+            if (obj != null)
             {
-                Rigidbody2D rb = objectsToTeleport[i].GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    rb.position = (Vector2)(objectsToTeleport[i].position + delta);
-                }
-                objectsToTeleport[i].position += delta;
+                Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+                if (rb != null) rb.position = (Vector2)(obj.position + delta);
+                obj.position += delta;
             }
         }
+
+        if (oldCameraZone != null) oldCameraZone.SetActive(false);
+        if (newCameraZone != null) newCameraZone.SetActive(true);
 
         Physics2D.SyncTransforms();
 
         isPlayerInside = false;
-        if (interactionHint != null)
-        {
-            interactionHint.SetActive(false);
-        }
+        if (interactionHint != null) interactionHint.SetActive(false);
     }
 }

@@ -1,6 +1,3 @@
-// =====================================================
-// DiceRollPanel.cs
-// =====================================================
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,19 +12,17 @@ public class DiceRollPanel : MonoBehaviour
     private const int MAX_CARDS = 7;
     private const float CARD_W = 276f, CARD_H = 144f, CARD_GAP = 9f, CARD_X = 14f, CARD_Y = 14f, SLIDE_DUR = 0.16f, ROLL_DUR = 0.50f, PAUSE = 0.28f;
 
-    // Оригинальные цвета и константы из предоставленного дизайна
-    private static readonly Color C_PLAYER = new Color(1.00f, 0.84f, 0.05f, 1f); // Желтый акцент игрока
-    private static readonly Color C_ENEMY = new Color(0.52f, 0.20f, 0.84f, 1f);  // Фиолетовый акцент врага
-    private static readonly Color C_BG = new Color(0.06f, 0.06f, 0.12f, 0.96f);     // Темный фон карточки
-    private static readonly Color C_SUCCESS = new Color(0.18f, 0.90f, 0.44f, 1f);  // Зеленый успех
-    private static readonly Color C_FAIL = new Color(0.92f, 0.22f, 0.22f, 1f);     // Красная неудача
+    private static readonly Color C_PLAYER = new Color(1.00f, 0.84f, 0.05f, 1f);
+    private static readonly Color C_ENEMY = new Color(0.52f, 0.20f, 0.84f, 1f);
+    private static readonly Color C_BG = new Color(0.06f, 0.06f, 0.12f, 0.96f);
+    private static readonly Color C_SUCCESS = new Color(0.18f, 0.90f, 0.44f, 1f);
+    private static readonly Color C_FAIL = new Color(0.92f, 0.22f, 0.22f, 1f);
     private static readonly Color C_INFO = new Color(0.35f, 0.70f, 1.00f, 1f);
 
-    // Счётчики для корректировки рандома игрока
     private static int consecutiveFailures = 0;
     private static int consecutiveWoundFailures = 0;
 
-    public struct CombatRequest { public UnitStats attacker, defender; public Health defenderHealth; public bool attackerIsPlayer, isMelee; }
+    public struct CombatRequest { public UnitStats attacker, defender; public Health defenderHealth; public bool attackerIsPlayer, isMelee, isForced; public int forcedHit, forcedWound, forcedSave; }
     private class DiceView { public Image bg; public TextMeshProUGUI num, result; public int roll; }
     private class CardData { public GameObject root; public CanvasGroup group; public TextMeshProUGUI title, final; public DiceView[] dice = new DiceView[3]; }
 
@@ -50,28 +45,22 @@ public class DiceRollPanel : MonoBehaviour
 
     private int RollDie(bool isPlayerRoll)
     {
-        // Бросок врага всегда честный
         if (!isPlayerRoll) return Random.Range(1, 7);
 
         GameSettings.LoadOptions();
         int difficulty = GameSettings.Difficulty;
 
-        // Честный бросок 1D6 для игрока (по 16.6% на каждую грань)
         int roll = Random.Range(1, 7);
 
-        // Легкая сложность: 50% шанс автоматически перебросить выпавшую единицу
         if (difficulty == 0 && roll == 1 && Random.value > 0.5f)
         {
             roll = Random.Range(2, 7);
         }
-        // Высокая сложность: 50% шанс, что игра заставит перебросить шестерку
         else if (difficulty == 2 && roll == 6 && Random.value > 0.5f)
         {
             roll = Random.Range(1, 6);
         }
 
-        // Мягкая помощь при серии неудач:
-        // Если игрок промахнулся 2+ раза подряд и выкинул мало, слегка подталкиваем результат (+1)
         if (consecutiveFailures >= 2 && roll <= 3)
         {
             roll += 1;
@@ -84,40 +73,19 @@ public class DiceRollPanel : MonoBehaviour
     {
         int hitSkill = HitSkill(req), strength = Str(req), toughness = Tough(req), modSave = Mathf.Clamp(ModSave(req), 2, 7), dmg = Dmg(req);
 
-        int hitRoll = RollDie(req.attackerIsPlayer);
-        int woundRoll = RollDie(req.attackerIsPlayer);
-
-        // Гарантированное 4-е пробитие для игрока (Pity Timer)
-        if (req.attackerIsPlayer && consecutiveWoundFailures >= 3)
-        {
-            woundRoll = 6;
-        }
-
-        int saveRoll = Random.Range(1, 7);
+        int hitRoll = req.isForced ? req.forcedHit : RollDie(req.attackerIsPlayer);
+        int woundRoll = req.isForced ? req.forcedWound : RollDie(req.attackerIsPlayer);
+        int saveRoll = req.isForced ? req.forcedSave : Random.Range(1, 7);
 
         bool hit = hitRoll >= hitSkill;
         bool wound = hit && woundRoll >= WoundThreshold(strength, toughness);
         bool saved = wound && modSave <= 6 && saveRoll >= modSave;
         bool dmgDone = wound && !saved;
 
-        // МГНОВЕННОЕ ВЛИЯНИЕ НА ИГРУ (до запуска анимаций карточек)
         if (dmgDone && req.defender != null)
         {
             req.defender.TakeDamage(dmg);
             if (req.defenderHealth != null) req.defenderHealth.ApplyDamage(dmg);
-        }
-
-        // Корректировка счетчиков неудач игрока
-        if (req.attackerIsPlayer)
-        {
-            if (dmgDone) consecutiveFailures = 0;
-            else consecutiveFailures++;
-
-            if (hit)
-            {
-                if (wound) consecutiveWoundFailures = 0;
-                else consecutiveWoundFailures++;
-            }
         }
 
         bool hitGood = hit == req.attackerIsPlayer, woundGood = wound == req.attackerIsPlayer, saveGood = saved != req.attackerIsPlayer;
@@ -125,22 +93,31 @@ public class DiceRollPanel : MonoBehaviour
 
         yield return StartCoroutine(FadeIn(cd));
 
-        // 1. Попадание
-        yield return StartCoroutine(AnimateDie(cd.dice[0], hitRoll));
-        FinishDie(cd.dice[0], hit, hitGood);
-        yield return new WaitForSeconds(PAUSE);
-        if (!hit) { ShowFinal(cd, "ПРОМАХ", req.attackerIsPlayer ? C_FAIL : C_SUCCESS); yield return new WaitForSeconds(1.8f); yield return StartCoroutine(FadeOut(cd)); yield break; }
+        if (req.isForced)
+        {
+            cd.dice[0].num.text = hitRoll.ToString();
+            FinishDie(cd.dice[0], hit, hitGood);
+            cd.dice[1].num.text = woundRoll.ToString();
+            FinishDie(cd.dice[1], wound, woundGood);
+            cd.dice[2].num.text = saveRoll.ToString();
+            FinishDie(cd.dice[2], saved, saveGood);
+        }
+        else
+        {
+            yield return StartCoroutine(AnimateDie(cd.dice[0], hitRoll));
+            FinishDie(cd.dice[0], hit, hitGood);
+            yield return new WaitForSeconds(PAUSE);
+            if (!hit) { ShowFinal(cd, "ПРОМАХ", req.attackerIsPlayer ? C_FAIL : C_SUCCESS); yield return new WaitForSeconds(1.8f); yield return StartCoroutine(FadeOut(cd)); yield break; }
 
-        // 2. Рана (Пробитие)
-        yield return StartCoroutine(AnimateDie(cd.dice[1], woundRoll));
-        FinishDie(cd.dice[1], wound, woundGood);
-        yield return new WaitForSeconds(PAUSE);
-        if (!wound) { ShowFinal(cd, "БЕЗ РАНЫ", req.attackerIsPlayer ? C_FAIL : C_SUCCESS); yield return new WaitForSeconds(1.8f); yield return StartCoroutine(FadeOut(cd)); yield break; }
+            yield return StartCoroutine(AnimateDie(cd.dice[1], woundRoll));
+            FinishDie(cd.dice[1], wound, woundGood);
+            yield return new WaitForSeconds(PAUSE);
+            if (!wound) { ShowFinal(cd, "БЕЗ РАНЫ", req.attackerIsPlayer ? C_FAIL : C_SUCCESS); yield return new WaitForSeconds(1.8f); yield return StartCoroutine(FadeOut(cd)); yield break; }
 
-        // 3. Броня (Сейв)
-        yield return StartCoroutine(AnimateDie(cd.dice[2], saveRoll));
-        FinishDie(cd.dice[2], saved, saveGood);
-        yield return new WaitForSeconds(PAUSE);
+            yield return StartCoroutine(AnimateDie(cd.dice[2], saveRoll));
+            FinishDie(cd.dice[2], saved, saveGood);
+            yield return new WaitForSeconds(PAUSE);
+        }
 
         if (saved) ShowFinal(cd, "СОХРАНЁН", req.attackerIsPlayer ? C_FAIL : C_SUCCESS);
         else ShowFinal(cd, $"РАНА -{dmg}", req.attackerIsPlayer ? C_SUCCESS : C_FAIL);
@@ -262,17 +239,13 @@ public class DiceRollPanel : MonoBehaviour
 
     int HitSkill(CombatRequest r)
     {
-        // 1. Берем базовый навык (ближний или дальний бой)
         int baseSkill = r.attacker == null ? 4 : (r.isMelee ? r.attacker.weaponSkill : r.attacker.ballisticSkill);
 
-        // 2. Если атакует ВРАГ, усложняем ему бросок за счет Неуловимости игрока
         if (!r.attackerIsPlayer && PlayerXP.Instance != null)
         {
             baseSkill += PlayerXP.Instance.elusiveness;
         }
 
-        // 3. Возвращаем результат, ограничивая его от 2 до 7 
-        // (если навык станет 7, враг физически не выкинет столько на D6 и всегда будет мазать)
         return Mathf.Clamp(baseSkill, 2, 7);
     }
     int Str(CombatRequest r) => r.attacker != null ? r.attacker.strength : 4;

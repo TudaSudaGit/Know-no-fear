@@ -11,7 +11,17 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (hitInfo.CompareTag("Player")) { Destroy(gameObject); return; }
+        if (hitInfo.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        if (hitInfo.GetComponent<TutorialTarget>() != null || hitInfo.GetComponentInParent<TutorialTarget>() != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         Health targetHealth = hitInfo.GetComponent<Health>()
                            ?? hitInfo.GetComponentInParent<Health>();
@@ -23,11 +33,11 @@ public class Bullet : MonoBehaviour
 
             DiceRollPanel.Request(new DiceRollPanel.CombatRequest
             {
-                attacker         = attackerStats,
-                defender         = targetStats,
-                defenderHealth   = targetHealth,
+                attacker = attackerStats,
+                defender = targetStats,
+                defenderHealth = targetHealth,
                 attackerIsPlayer = true,
-                isMelee          = false
+                isMelee = false
             });
         }
 
