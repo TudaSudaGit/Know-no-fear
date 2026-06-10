@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class TutorialTarget : MonoBehaviour
 {
@@ -38,11 +39,16 @@ public class TutorialTarget : MonoBehaviour
         }
 
         Destroy(other.gameObject);
-        Invoke("ResetLock", 0.5f);
+
+        // Запускаем корутину на DiceRollPanel — он не уничтожается,
+        // поэтому Invoke на этом объекте больше не потеряется при Destroy
+        DiceRollPanel.EnsureExists();
+        DiceRollPanel.Instance.StartCoroutine(ResetLockCoroutine());
     }
 
-    void ResetLock()
+    static IEnumerator ResetLockCoroutine()
     {
+        yield return new WaitForSeconds(0.5f);
         IsTutorialCombatActive = false;
     }
 }

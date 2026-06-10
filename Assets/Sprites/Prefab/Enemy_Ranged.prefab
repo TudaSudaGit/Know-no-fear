@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200162f09aa13894f9972175ac87bb8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
-  moveSpeed: 2
+  moveSpeed: 7
   detectionRange: 50
   shootRange: 25
   retreatRange: 12
@@ -428,7 +428,7 @@ MonoBehaviour:
   armorPenetration: 0
   toughness: 3
   save: 5
-  wounds: 2
+  wounds: 1
   armorPoints: 0
 --- !u!114 &-3860610797192605250
 MonoBehaviour:

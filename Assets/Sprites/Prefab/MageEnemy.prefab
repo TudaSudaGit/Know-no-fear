@@ -192,8 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e7cb9815480e1459cfdc4daf59d3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MageEnemy
-  castRange: 20
-  castCooldown: 8
+  castRange: 40
+  castCooldown: 7
   uiContainer: {fileID: 2204471186733165018}
 --- !u!50 &8948398261481815025
 Rigidbody2D:

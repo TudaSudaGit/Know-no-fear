@@ -19,6 +19,8 @@ public class WeaponController : MonoBehaviour
     private bool isReloading = false;
     private int baseMaxReserve = -1;
 
+    private UnitStats cachedPlayerStats;
+
     void Awake()
     {
         Instance = this;
@@ -27,6 +29,15 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
+        // UnitStats может быть на родительском объекте (Player_Root),
+        // а WeaponController — на дочернем. Ищем по всей цепочке.
+        cachedPlayerStats = GetComponent<UnitStats>()
+                         ?? GetComponentInParent<UnitStats>()
+                         ?? GetComponentInChildren<UnitStats>();
+
+        if (cachedPlayerStats == null)
+            Debug.LogWarning("[WeaponController] UnitStats не найден! Проверь иерархию Player.");
+
         UpdateAmmoDifficulty();
     }
 
@@ -74,6 +85,13 @@ public class WeaponController : MonoBehaviour
         currentAmmoInClip--;
         UpdateAmmoUI();
         GameObject bullet = Instantiate(bulletPrefab, firePointEnd.position, firePointEnd.rotation);
+
+        // Передаём актуальные статы игрока пуле — иначе attacker будет null
+        // и DiceRollPanel будет использовать дефолтное значение 4 вместо реального навыка
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        if (bulletScript != null)
+            bulletScript.attackerStats = cachedPlayerStats;
+
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {

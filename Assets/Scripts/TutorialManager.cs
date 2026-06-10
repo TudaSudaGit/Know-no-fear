@@ -79,7 +79,7 @@ public class TutorialManager : MonoBehaviour
                 instructionText.text = $"ПРИЦЕЛИВАНИЕ:\nЗажми [{FormatKey(InputManager.AimKey)}], чтобы прицелиться.";
                 break;
             case TutorialStep.ShootPractice:
-                instructionText.text = $"СТРЕЛЬБА:\nУдерживая [{FormatKey(InputManager.AimKey)}], нажми [{FormatKey(InputManager.ShootKey)}], чтобы выстрелить в мишень.";
+                instructionText.text = $"СТРЕЛЬБА:\nУдерживая [{FormatKey(InputManager.AimKey)}], нажми [{FormatKey(InputManager.ShootKey)}], чтобы выстрелить в мишень. Без зажатой ПКМ стрельба не работает.";
                 break;
             case TutorialStep.CombatExplain:
                 instructionText.text = "МЕХАНИКА БОЯ:\n6 на 1 кубике — Попадание.\n4 на 2 кубике — Рана.\n1 на 3 кубике — Провал защиты врага.\nПодбери выпавший опыт!";

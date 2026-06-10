@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2007c42c13224264d865382cb126dd69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankEnemy
-  moveSpeed: 2
+  moveSpeed: 5
   attackRange: 12
   attackCooldown: 1.5
   uiContainer: {fileID: 7159139224166009363}
@@ -570,7 +570,7 @@ MonoBehaviour:
   damage: 2
   armorPenetration: -2
   toughness: 6
-  save: 5
+  save: 3
   wounds: 3
   armorPoints: 0
 --- !u!114 &1437084952019565763

@@ -8,6 +8,10 @@ public class UniversalDoor : MonoBehaviour
     public GameObject oldCameraZone;
     public GameObject newCameraZone;
 
+    [Header("Таймер выживания")]
+    [Tooltip("Включить только на двери после обучения — запустит 3-минутный таймер")]
+    public bool startTimerOnTeleport = false;
+
     private bool isPlayerInside = false;
 
     void Update()
@@ -65,5 +69,8 @@ public class UniversalDoor : MonoBehaviour
 
         isPlayerInside = false;
         if (interactionHint != null) interactionHint.SetActive(false);
+
+        if (startTimerOnTeleport && SurvivalTimer.Instance != null)
+            SurvivalTimer.Instance.StartTimer();
     }
 }

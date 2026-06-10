@@ -33,7 +33,7 @@ public class DiceRollPanel : MonoBehaviour
         GameObject go = new GameObject("_DiceCanvas");
         Canvas cv = go.AddComponent<Canvas>();
         cv.renderMode = RenderMode.ScreenSpaceOverlay;
-        cv.sortingOrder = 999;
+        cv.sortingOrder = 0;
         go.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
         go.AddComponent<GraphicRaycaster>();
         panelRoot = go.transform;
@@ -82,10 +82,14 @@ public class DiceRollPanel : MonoBehaviour
         bool saved = wound && modSave <= 6 && saveRoll >= modSave;
         bool dmgDone = wound && !saved;
 
+        Debug.Log($"[Dice] hitRoll={hitRoll} vs hitSkill={hitSkill} → hit={hit} | woundRoll={woundRoll} vs {WoundThreshold(strength, toughness)} → wound={wound} | saveRoll={saveRoll} vs modSave={modSave} → saved={saved} | dmgDone={dmgDone} | attackerIsPlayer={req.attackerIsPlayer}");
+
         if (dmgDone && req.defender != null)
         {
+            // Сначала броня, потом HP — всё через UnitStats
             req.defender.TakeDamage(dmg);
-            if (req.defenderHealth != null) req.defenderHealth.ApplyDamage(dmg);
+            // Синхронизируем визуал Health с реальным значением wounds
+            if (req.defenderHealth != null) req.defenderHealth.SyncFromStats();
         }
 
         bool hitGood = hit == req.attackerIsPlayer, woundGood = wound == req.attackerIsPlayer, saveGood = saved != req.attackerIsPlayer;

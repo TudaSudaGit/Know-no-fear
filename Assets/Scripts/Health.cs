@@ -25,7 +25,9 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        cachedStats = GetComponent<UnitStats>();
+        cachedStats = GetComponent<UnitStats>()
+                   ?? GetComponentInParent<UnitStats>()
+                   ?? GetComponentInChildren<UnitStats>();
         if (cachedStats != null) maxHealth = cachedStats.wounds;
         currentHealth = maxHealth;
         if (healthContainer != null) SetupUI();
@@ -127,6 +129,24 @@ public class Health : MonoBehaviour
     public void ApplyDamage(int dmg)
     {
         currentHealth = Mathf.Max(0, currentHealth - dmg);
+        RefreshUI();
+        if (currentHealth <= 0) Die();
+    }
+
+    /// <summary>
+    /// Вызывается после UnitStats.TakeDamage() — берёт актуальное значение wounds
+    /// и синхронизирует визуал без повторного вычитания урона.
+    /// </summary>
+    public void SyncFromStats()
+    {
+        if (cachedStats == null) return;
+        currentHealth = Mathf.Max(0, cachedStats.wounds);
+        RefreshUI();
+        if (currentHealth <= 0) Die();
+    }
+
+    void RefreshUI()
+    {
         if (cubeText != null) cubeText.text = currentHealth.ToString();
         if (cubeImage != null)
         {
@@ -134,7 +154,6 @@ public class Health : MonoBehaviour
             Color base_c = isPlayerHealth ? PLAYER_COLOR : ENEMY_COLOR;
             cubeImage.color = Color.Lerp(new Color(0.4f, 0.05f, 0.05f), base_c, t);
         }
-        if (currentHealth <= 0) Die();
     }
 
     void Die()

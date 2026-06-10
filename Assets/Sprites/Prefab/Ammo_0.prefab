@@ -82,7 +82,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3921441551649640537, guid: 38759bceeeac4174cafdaf5ad65f20e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -179,3 +179,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193190b5e90a95f4fba99604dba20a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AmmoCrate
+  spawnPointIndex: -1

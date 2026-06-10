@@ -106,9 +106,22 @@ public class RangedEnemy : MonoBehaviour
     {
         if (TutorialTarget.IsTutorialCombatActive) return;
 
-        UnitStats myStats = GetComponent<UnitStats>();
-        UnitStats targetStats = player.GetComponentInParent<UnitStats>() ?? player.GetComponent<UnitStats>();
-        Health targetHealth = player.GetComponentInParent<Health>() ?? player.GetComponent<Health>();
+        UnitStats myStats = GetComponent<UnitStats>()
+                         ?? GetComponentInParent<UnitStats>()
+                         ?? GetComponentInChildren<UnitStats>();
+
+        UnitStats targetStats = player.GetComponent<UnitStats>()
+                             ?? player.GetComponentInParent<UnitStats>()
+                             ?? player.GetComponentInChildren<UnitStats>();
+
+        Health targetHealth = player.GetComponent<Health>()
+                           ?? player.GetComponentInParent<Health>()
+                           ?? player.GetComponentInChildren<Health>();
+
+        Debug.Log($"[RangedEnemy] myStats={myStats}, targetStats={targetStats}, targetHealth={targetHealth}, DicePanel={DiceRollPanel.Instance}");
+
+        if (targetStats == null || targetHealth == null) return;
+
 
         DiceRollPanel.Request(new DiceRollPanel.CombatRequest
         {

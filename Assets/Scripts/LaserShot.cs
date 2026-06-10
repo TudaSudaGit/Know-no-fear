@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class LaserShot : MonoBehaviour
 {
-    public float speed    = 15f;
-    public int   damage   = 1;
+    public float speed = 15f;
+    public int damage = 1;
     public float lifetime = 8f;
 
     [HideInInspector] public UnitStats attackerStats;
@@ -36,12 +36,18 @@ public class LaserShot : MonoBehaviour
             {
                 DiceRollPanel.Instance.RequestCombat(new DiceRollPanel.CombatRequest
                 {
-                    attacker         = attackerStats,
-                    defender         = targetStats,
-                    defenderHealth   = targetHealth,
+                    attacker = attackerStats,
+                    defender = targetStats,
+                    defenderHealth = targetHealth,
                     attackerIsPlayer = false,
-                    isMelee          = false
+                    isMelee = false
                 });
+            }
+            else if (targetStats != null)
+            {
+                // Fallback: урон через UnitStats (броня → HP), потом синхронизируем визуал
+                targetStats.TakeDamage(damage);
+                targetHealth.SyncFromStats();
             }
             else
             {
